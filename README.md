@@ -22,8 +22,13 @@
   - `great-works.md`：《原理》《物种起源》、狭义相对论、Transformer 四篇并列，以及各项发明以什么形态进入世界
   - `genesis.md`：生成史。从约 2014 年的想法、2016 年成型到 2017 年春爆发；贡献脚注；作者的去向
   - `flaws.md`：把论文当工程文本来读，原文逐条对照 arXiv PDF 核实
-- `site/index.html`：网站。单页静态 HTML，不需要构建；当前是 M3 预览版
-- `experiments/`：小规模 Transformer 实验，在 M4 阶段做
+- `site/index.html`：网站。单页静态 HTML，不需要构建；当前是 M4 预览版
+- `experiments/`：真实实验，CPU 上约 20 分钟
+  - `tiny.py`：从零写的 Transformer 编码器，位置编码、√dₖ 缩放、层归一化位置可以单独开关
+  - `ablations.py`：三组消融（谁咬了谁 / 钥匙—值查找 / Post-LN 与预热），种子 0、1、2 → `site/data/ablations.json`
+  - `export_attention.py`：从 bert-base-uncased 导出真实注意力权重 → `site/data/attention.json`
+  - `inline_data.py`：把两个 JSON 嵌进 `site/index.html`
+  - 重跑：`pip install -r experiments/requirements.txt && cd experiments && python ablations.py && python export_attention.py && python inline_data.py`
 
 ## 证据标记
 
