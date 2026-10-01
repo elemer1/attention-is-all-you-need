@@ -277,6 +277,70 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
   .cast { top: calc(env(safe-area-inset-top, 0px) + 4.4rem); }
 }
 
+/* ---------- movement IV ---------- */
+:root { --s-elec: #9a5b00; --s-net: #00836f; --s-ai: #2a46c4; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --s-elec: #c4862a; --s-net: #1f9e8f; --s-ai: #7088f5; } }
+:root[data-theme="dark"] { --s-elec: #c4862a; --s-net: #1f9e8f; --s-ai: #7088f5; }
+.tc-controls { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2) var(--s5); align-items: center; margin-bottom: var(--s3); }
+.tc-controls .rowpick { margin: 0; }
+.tc-legend { display: flex; flex-wrap: wrap; gap: .2rem 1rem; font-family: var(--f-ui); font-size: .78rem; color: var(--muted); }
+.sw { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: .35rem; }
+.sw.elec { background: var(--s-elec); } .sw.net { background: var(--s-net); } .sw.ai { background: var(--s-ai); }
+.tc-wrap { position: relative; background: var(--surface); border: 1px solid var(--rule); padding: var(--s3); overflow-x: auto; }
+.tc-wrap svg { display: block; width: 100%; min-width: 34rem; height: auto; }
+.tc-grid { stroke: var(--rule); stroke-width: 1; }
+.tc-axis { stroke: var(--muted); stroke-width: 1; }
+.tc-tick, .tc-axt { font-family: var(--f-ui); font-size: 11px; fill: var(--muted); }
+.tc-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.tc-line.dash { stroke-dasharray: 4 4; }
+.tc-line.elec, .dot.elec { stroke: var(--s-elec); } .tc-line.net, .dot.net { stroke: var(--s-net); } .tc-line.ai, .dot.ai { stroke: var(--s-ai); }
+.dot { stroke-width: 2; } .dot.elec { fill: var(--s-elec); } .dot.net { fill: var(--s-net); } .dot.ai { fill: var(--s-ai); }
+.dot.hollow { fill: var(--surface); }
+.dot { paint-order: stroke; }
+.hit { fill: transparent; stroke: none; cursor: pointer; }
+.tc-pt:focus { outline: none; } .tc-pt:focus .dot { stroke-width: 3.5; }
+.tc-band { stroke: none; opacity: .1; } .tc-band.elec { fill: var(--s-elec); } .tc-band.net { fill: var(--s-net); }
+.tc-blab { font-family: var(--f-ui); font-size: 10.5px; fill: var(--muted); }
+.tc-mark { stroke: var(--muted); stroke-dasharray: 2 3; }
+.tc-now { stroke: var(--fg); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.tc-nowt { font-family: var(--f-ui); font-size: 11.5px; font-weight: 700; fill: var(--fg); }
+.tc-dl { font-family: var(--f-ui); font-size: 12px; font-weight: 500; fill: var(--fg); }
+.tc-tip { position: absolute; width: 220px; padding: .4rem .6rem; font-family: var(--f-ui); font-size: .78rem; line-height: 1.5; background: var(--fg); color: var(--bg); border-radius: 4px; pointer-events: none; z-index: 2; }
+.tc-tbl { margin-top: var(--s3); font-family: var(--f-ui); font-size: .8rem; }
+.tc-tbl summary { cursor: pointer; color: var(--accent); }
+.tc-tbl > div { overflow-x: auto; }
+.tc-tbl table { border-collapse: collapse; margin-top: var(--s2); min-width: 30rem; }
+.tc-tbl th, .tc-tbl td { text-align: left; padding: .3rem .8rem .3rem 0; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.tc-tbl th { color: var(--muted); font-weight: 500; }
+
+.contrast { margin: var(--s4) 0 var(--s6); border: 1px solid var(--rule); background: var(--surface); }
+.ct-head, .ct-row { display: grid; grid-template-columns: 5.5rem 1fr 1fr; gap: var(--s4); padding: .7rem var(--s4); }
+.ct-head { font-family: var(--f-ui); font-size: .76rem; letter-spacing: .08em; color: var(--muted); border-bottom: 1px solid var(--rule); }
+.ct-head span:last-child { color: var(--eng); }
+.ct-row + .ct-row { border-top: 1px solid var(--rule); }
+.ct-k { font-family: var(--f-display); font-weight: 900; }
+.ct-a { color: var(--muted); font-size: .95rem; line-height: 1.7; min-width: 0; }
+.ct-b { font-size: .95rem; line-height: 1.7; min-width: 0; }
+.ct-link { font-family: var(--f-ui); font-size: .74rem; margin-left: .5rem; white-space: nowrap; }
+.signals { padding-left: 1.2em; }
+.signals li { margin-bottom: .7em; }
+.signals b { font-family: var(--f-display); }
+.ledger { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--s4); max-width: 52rem; margin: var(--s4) 0 var(--s6); }
+.lg { border: 1px solid var(--rule); background: var(--surface); padding: var(--s4); min-width: 0; }
+.lg.act { border-color: var(--eng); }
+.lg h4 { margin: 0 0 var(--s3); font-family: var(--f-display); font-weight: 900; font-size: 1.05rem; }
+.lg.act h4 { color: var(--eng); }
+.lg dl { margin: 0; }
+.lg dl div { display: grid; grid-template-columns: 6.5rem 1fr; gap: var(--s3); padding-block: .45rem; border-top: 1px dotted var(--rule); font-size: .93rem; line-height: 1.65; }
+.lg dt { font-family: var(--f-ui); font-size: .76rem; color: var(--muted); padding-top: .15rem; }
+.lg dd { margin: 0; }
+@media (max-width: 34rem) {
+  .ct-head { display: none; }
+  .ct-row { grid-template-columns: 1fr; gap: .2rem; }
+  .ct-a::before { content: "叠加："; font-family: var(--f-ui); font-size: .74rem; }
+  .ct-b::before { content: "重组："; font-family: var(--f-ui); font-size: .74rem; color: var(--eng); }
+}
+
 @media (max-width: 52rem) {
   .four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .inv li { grid-template-columns: 4.5rem 1fr; }
@@ -321,7 +385,7 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
     <a href="#m1"><span class="n">I</span><span class="t">重要性</span><span class="d">断层；与《原理》《物种起源》、相对论并列；与伟大的工程发明并列；中心悖论</span><span class="status done">已上线</span></a>
     <a href="#m2"><span class="n">II</span><span class="t">表达</span><span class="d">它是怎么被造出来的：2016 年成型，2017 年春爆发；标注版论文；读书会指南</span><span class="status done">已上线</span></a>
     <a href="#m3"><span class="n">III</span><span class="t">理解</span><span class="d">拆零件；我们弄懂了什么，还没弄懂什么</span><span class="status">制作中</span></a>
-    <a href="#m4"><span class="n">IV</span><span class="t">处境与行动</span><span class="d">为什么被低估；互联网与电力的滞后；行动不是投资</span><span class="status">制作中</span></a>
+    <a href="#m4"><span class="n">IV</span><span class="t">处境与行动</span><span class="d">为什么被低估；互联网与电力的滞后；过渡期的不对称优势；行动不是投资</span><span class="status done">已上线</span></a>
     <a href="#cases"><span class="n">⁂</span><span class="t">历史案例库</span><span class="d">20 个已核实的案例：谁把新技术叠加在旧系统上，谁围绕它重新组织</span><span class="status done">已上线</span></a>
   </nav>
 
@@ -566,11 +630,102 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
       <h2>处境与行动</h2>
       <div class="en">Situation &amp; Action</div>
     </div>
-    <div class="outline">
-      <section><h4>为什么被严重低估</h4><p>人们没有准备好，旧制度接不住这次冲击。教育是最明显的例子：作业、考试、学位的意义都在松动。</p></section>
-      <section><h4>互联网与电力的滞后</h4><p>从 ARPANET 到全球一半人上网用了五十年；电力对工厂生产率的影响，要等第一座电站开业四十年后才出现。转变有它的速度。</p></section>
-      <section><h4>过渡期的不对称优势</h4><p>赢家往往不是最早买电动机的人，而是最早围绕新动力重新组织流程的人。</p></section>
-      <section><h4>行动不是投资</h4><p>纳斯达克用了十五年才回到 2000 年的高点，亚马逊却活了下来。方向对了、时机错了，投资者十几年回不了本；做事的人却在积累能力。</p></section>
+    <div class="prose">
+      <p>前三个乐章讲的是这篇论文。这一乐章讲我们自己。如果它真有第一乐章说的那么重要，那么我们现在正站在一次转变的中途。历史上每一次这样的转变都有一个特点：大多数人在当时低估了它，而低估的方式惊人地相似。</p>
+
+      <h3 id="m4-1"><span class="sec">4.1</span>为什么被严重低估</h3>
+      <p>低估不是因为人们没看见。ChatGPT 上线后，几乎每个人都试过。低估是因为人们拿旧系统去接新东西，接不住，就以为东西本身没那么大。</p>
+      <p>教育是最明显的例子。学校的整套制度，作业、考试、论文、学位，都建立在一个前提上：写出一篇像样的文字、解出一道题，需要一个人自己花时间。这个前提在两三年里松动了。2025 年英国的一项调查里，用 AI 完成作业或考核的本科生，一年之内从 53% 升到 88%；只有 29% 的学生觉得学校在鼓励这样做。<sup class="fn"><a href="#n4-1" id="r4-1">1</a></sup>学生已经换了做法，制度还在原地。</p>
+      <p>制度的反应往往是先挡，再摇摆。纽约市公立学校 2023 年 1 月禁用 ChatGPT，5 月撤回，教育局长称之为“条件反射式的恐惧”；2026 年 9 月，又宣布对学前班到八年级暂停学生使用生成式 AI 一年。<sup class="fn"><a href="#n4-2" id="r4-2">2</a></sup>这不是哪一所学校的失误。二千四百年前，柏拉图笔下的塔穆斯就担心文字会让学习者“灵魂中生出遗忘”；1980 年代美国为计算器该不该进课堂吵了十几年；2007 年还有大学历史系投票禁止引用维基百科。每一次，旧制度的第一反应都是保护自己的前提。</p>
+      <p>更普遍的问题是：我们还不知道怎样和它共存。它不是一台更快的打字机，也不是一个更好的搜索引擎，旧的类比都不太合身。没有合身的类比，人就倾向于把它当成旧东西的升级版，而这正是低估的开始。</p>
+
+      <h3 id="m4-2"><span class="sec">4.2</span>转变有它的速度</h3>
+      <p>经济史学家 Paul David 在 1990 年研究了一个问题：电力是 19 世纪末最重要的发明之一，为什么它对工厂生产率的影响，要等到 1920 年代才出现？他的答案是：第一座中央电站开业四十年后，统计数字里才看得见它。<sup class="fn"><a href="#n4-3" id="r4-3">3</a></sup></p>
+      <p>互联网也是这样。1969 年 ARPANET 发出第一条消息，1989 年伯纳斯-李提交万维网的提案，美国成年人上网的比例到 2000 年才过半，美国劳动生产率的加速出现在 1995 到 2004 年。<sup class="fn"><a href="#n4-4" id="r4-4">4</a></sup>下图把三次转变放在同一把尺子上：横轴是从各自的起点算起过了多少年。</p>
+    </div>
+    <figure class="fig" aria-labelledby="tc-cap">
+      <div class="fig-label">图 ⑦ · 三次转变，同一把尺子</div>
+      <div class="tc-controls">
+        <div class="rowpick" id="tcMode" role="group" aria-label="起点">
+          <button type="button" id="tc-invent" data-m="invent" aria-pressed="true">从发明算起</button>
+          <button type="button" id="tc-product" data-m="product" aria-pressed="false">从第一款大众产品算起</button>
+        </div>
+        <div class="tc-legend" id="tcAnchors"></div>
+      </div>
+      <div class="tc-wrap" id="tc">
+        <svg viewBox="0 0 760 380" role="img" aria-label="电力、互联网、AI 三条普及曲线，横轴为从起点算起的年数，纵轴为普及比例"></svg>
+        <div class="tc-tip" id="tcTip" hidden></div>
+      </div>
+      <details class="tc-tbl"><summary>查看数据表</summary><div id="tcTable"></div></details>
+      <figcaption id="tc-cap">三条线的指标并不相同：电力是美国住宅通电比例，互联网是美国成年人上网比例，AI 是美国成年人用过 ChatGPT 的比例。空心点是口径不同的早期调查。它们能放在一起比较的只有形状和时间，不是具体数值。换一个起点，AI 看起来的快慢会差五年多：这本身就是一个提醒，所有“比以前快多少倍”的说法都取决于从哪一年开始数。<sup class="fn"><a href="#n4-4">4</a></sup></figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>这张图能说明三件事。第一，AI 普及得很快，但“多快”取决于怎么量。从发明算起，它远远跑在电力和互联网前面。切换到“从第一款大众产品算起”，只看“用过 ChatGPT”这一个产品，它的曲线几乎贴着互联网走。把所有生成式 AI 产品都算上，速度就明显更快了：圣路易斯联储的调查显示，到 2026 年 5 月，美国 18–64 岁的成年人里已有 62% 用过生成式 AI，按各自第一款大众产品算起，这个速度快过个人电脑和互联网。<sup class="fn"><a href="#n4-7" id="r4-7">7</a></sup></p>
+      <p>第二，普及不等于转变。电力的住宅普及率到 1920 年代已经过了三分之一，制造业的生产率却要等工厂重新布局之后才上来。互联网的生产率加速出现在网民过半前后，之后又回落了。用上了和改变了，中间隔着一整套组织的重建。</p>
+      <p>第三，AI 的这段重建才刚开始。个别岗位上的效果已经很清楚：一项对五千多名客服人员的研究发现，用上 AI 助手后每小时解决的问题平均多了 14%，新手多了 34%。可是美联储 2026 年 7 月的分析仍然认为，这些“微观层面的生产率提升还没有在总量上加总出来”。<sup class="fn"><a href="#n4-8" id="r4-8">8</a></sup>如果历史可以参照，我们正处在电力的 1900 年代、互联网的 1990 年代初：东西已经到处都是，统计数字里还看不太出来。</p>
+    </div>
+    <div class="prose">
+      <h3 id="m4-3"><span class="sec">4.3</span>过渡期的不对称优势</h3>
+      <p>如果转变要花几十年，那么这几十年就是一段窗口。窗口里的人分成两种。一种把新技术叠加在旧系统上：工厂把蒸汽机换成一台大电动机，天轴、皮带、厂房全部照旧；学校给每个学生发一个账号，作业和考试照旧。另一种围绕新技术重新组织：拆掉天轴，每台机器一台电动机，厂房改成单层，机器按工序重新排列。</p>
+      <p>Paul David 的研究里最值得记住的一点是：赢家往往不是最早买电动机的人，而是最早重新组织流程的人。<sup class="fn"><a href="#n4-3">3</a></sup>历史上同样的分野反复出现：</p>
+    </div>
+
+    <div class="contrast" id="contrast"></div>
+
+    <div class="prose">
+      <p>发明者自己也不例外。Google 发明了 Transformer，2020 年做出了一个很好的聊天机器人，却以安全为由没有发布。ChatGPT 上线一个月后，Google 内部进入“红色警报”。<sup class="fn"><a href="#n4-5" id="r4-5">5</a></sup>握着信号和读懂信号，是两回事；读懂信号和据此重新组织，又是两回事。</p>
+      <p>那么，在这段窗口里该看什么？下面这几条是本站从案例里归纳出来的判断，不是已被证明的规律：</p>
+      <ul class="signals">
+        <li><b>看流程，不看工具。</b>一个组织“用了 AI”说明不了什么。要看的是它有没有因此改掉某个流程、某个岗位的定义、某种考核方式。</li>
+        <li><b>看谁在绕过制度。</b>学生先于学校，员工先于公司。用户已经换了做法而制度还没动的地方，就是重组即将发生的地方。</li>
+        <li><b>看“还能用的旧厂房”。</b>电力的滞后来自“还能用”的旧厂房，拆了不划算。今天每个组织里都有这样的旧厂房：一套运转良好的流程，正因为它还好用，所以没人想拆。</li>
+        <li><b>看开放程度。</b>一项技术越开放，扩散得越快，留给观望者的时间就越短。Transformer 是有史以来最开放的通用发明之一。</li>
+      </ul>
+
+      <h3 id="m4-4"><span class="sec">4.4</span>行动不是投资</h3>
+      <p>说到这里，很容易得出一个结论：赶紧押注。这里需要分清两件事。</p>
+      <p>投资对时机极其敏感。互联网的方向完全正确，可是 2000 年 3 月 10 日买入纳斯达克指数的人，要等到 2015 年 4 月才回本，用了十五年。思科在 2000 年一度是全世界市值最高的公司，它的股价至今没有回到当年的高点。亚马逊的股价从 1999 年底到 2001 年 9 月跌掉了约 94%。Webvan 烧掉约 12 亿美元后倒闭，二十年后，生鲜到家这件事被 Instacart 和 DoorDash 做成了。<sup class="fn"><a href="#n4-6" id="r4-6">6</a></sup>方向对了，时机错了，回报会被压缩，甚至归零。</p>
+      <p>可是同一段时间里，另一种人的账本完全不同。1994 年开始学写网页的人，2000 年泡沫破了，他会写网页这件事并没有跟着破。亚马逊的股价跌了 94%，它在那几年搭起来的仓储和物流系统没有跌。行动积累的是能力，能力不随市场价格涨跌，而且会复利。</p>
+    </div>
+
+    <div class="ledger">
+      <div class="lg">
+        <h4>投资者的账本</h4>
+        <dl>
+          <div><dt>押的是</dt><dd>价格</dd></div>
+          <div><dt>对时机</dt><dd>极其敏感，早了和错了几乎一样</dd></div>
+          <div><dt>2000 年泡沫之后</dt><dd>纳斯达克十五年才回本，思科至今没有回到高点</dd></div>
+          <div><dt>结论</dt><dd>方向对，不等于回报对</dd></div>
+        </dl>
+      </div>
+      <div class="lg act">
+        <h4>行动者的账本</h4>
+        <dl>
+          <div><dt>押的是</dt><dd>能力</dd></div>
+          <div><dt>对时机</dt><dd>不敏感，早一点的代价很低</dd></div>
+          <div><dt>2000 年泡沫之后</dt><dd>会写网页的人还会写，亚马逊的物流系统还在</dd></div>
+          <div><dt>结论</dt><dd>方向对了，就该开始</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>所以对现实中的大多数人来说，问题不是“现在该不该押注 AI”，而是“我准备围绕它重新组织哪一件事”。前一个问题要猜时机，后一个问题只要判断方向。方向，第一乐章已经说过了。</p>
+      <p class="pull">先有重要性的感受，然后表达，然后理解，然后行动。</p>
+    </div>
+    <div class="notes">
+      <h4>注</h4>
+      <ol>
+        <li id="n4-1"><span class="lv V">V</span>HEPI/Kortext, <i>Student Generative AI Survey 2025</i>（2025-02-26，英国本科生 1,041 人）：<a href="https://www.hepi.ac.uk/reports/student-generative-ai-survey-2025/">hepi.ac.uk</a></li>
+        <li id="n4-2"><span class="lv V">V</span>纽约市 2023 年禁用与撤回：<a href="https://www.forbes.com/sites/anafaguy/2023/05/18/new-york-city-public-schools-reverses-chatgpt-ban/">Forbes</a>；2026 年暂停令（<span class="lv S">S</span>）：<a href="https://www.beta.nyc/2026/09/04/nyc-paused-ai-in-its-classrooms-here-is-what-the-policy-actually-says/">BetaNYC</a>。柏拉图、计算器、维基百科三例见<a href="#cases">案例库</a>。</li>
+        <li id="n4-3"><span class="lv V">V</span>Paul A. David, “The Dynamo and the Computer”, <i>AER</i> 80(2), 1990：<a href="https://gwern.net/doc/economics/automation/1990-david.pdf">PDF</a>。工厂动力中电动机的比例：1899 年不到 5%，1919 年约 50–55%，1929 年约 75–78%（<span class="lv S">S</span> Devine 1983，经 NBER w8676 与 EH.net 转引）。</li>
+        <li id="n4-4"><span class="lv S">S</span>图 ⑦ 数据：电力为美国住宅通电比例，<i>Historical Statistics of the United States</i> Db234–241（1907: 8.0%, 1920: 34.7%, 1930: 68.2%, 1940: 78.7%；核实了表号，数值据二手来源）。互联网为 Pew 美国成年人上网比例（<span class="lv V">V</span> <a href="https://www.pewresearch.org/internet/fact-sheet/internet-broadband/">fact sheet</a>；1995 年 14% 来自 Pew/Times Mirror 早期电话调查，口径不同；2023 年起调查方式改变）。AI 为 Pew 美国成年人“用过 ChatGPT”比例（<span class="lv V">V</span> 2023-07: 18%, 2024-02: 23%, 2025-03: 34%, 2026-02: 44%；2023-03 的 14% 问法略有不同）：<a href="https://www.pewresearch.org/internet/2026/06/17/americans-and-ai-2026-chatbots-smart-devices-and-views-on-impact/">Pew 2026</a>。美国劳动生产率加速 1995–2004：Byrne, Oliner &amp; Sichel 2013（<a href="https://www.federalreserve.gov/pubs/feds/2013/201336/index.html">Fed</a>）。</li>
+        <li id="n4-5"><span class="lv S">S</span>Meena 未发布据《华尔街日报》报道；“红色警报”据《纽约时报》2022-12-21 报道。详见<a href="#case-google">案例库：Google</a>。</li>
+        <li id="n4-6"><span class="lv V">V</span>纳斯达克 2000-03-10 收盘 5,048.62，2015-04-23 收盘 5,056.06：<a href="https://www.npr.org/sections/thetwo-way/2015/04/23/397113284/15-years-after-the-dot-com-bust-nasdaq-closes-at-new-record">NPR</a>。思科、亚马逊、Webvan（<span class="lv S">S</span>）：见 <span class="mono">research/cases.md</span>；思科股价以发布时为准。</li>
+        <li id="n4-7"><span class="lv V">V</span>Bick, Blandin &amp; Deming, “The Rapid Adoption of Generative AI”（<a href="https://www.nber.org/papers/w32966">NBER w32966</a>）；最新一轮 2026 年 5 月为 62%：<a href="https://www.stlouisfed.org/on-the-economy/2026/sep/what-work-does-generative-ai-do">St. Louis Fed 2026-09</a>。该序列 2024 年 8 月的数值已从 39.4% 修订为 44.6%，本站只用修订后的序列。</li>
+        <li id="n4-8"><span class="lv V">V</span>Brynjolfsson, Li &amp; Raymond, “Generative AI at Work”, <i>QJE</i> 2025（<a href="https://www.nber.org/papers/w31161">NBER w31161</a>）。美联储 FEDS Note 2026-07-17：<a href="https://www.federalreserve.gov/econres/notes/feds-notes/the-ai-buildout-and-the-economy-publicly-available-data-to-assess-ais-impact-20260717.html">federalreserve.gov</a>。另有达拉斯联储 2026-07 指出 AI 暴露度高的行业生产率增长更快，但这只是相关：<a href="https://www.dallasfed.org/research/economics/2026/0707">dallasfed.org</a>。</li>
+      </ol>
     </div>
   </article>
 
@@ -594,7 +749,7 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
 </main>
 
 <footer>
-  这是项目的预览版本（M2）。第三、四乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
+  这是项目的预览版本（M3）。第三乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
 </footer>
 
 <script>
@@ -1103,6 +1258,120 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
       <ol>${s.q.map(x => `<li>${x}</li>`).join('')}</ol>
       <div class="home"><b>带回家的问题</b>${s.h}</div>
     </section>`).join('');
+})();
+
+
+/* ---------- ⑦ transition curves ---------- */
+(function () {
+  const S = [
+    { k: 'elec', name: '电力', what: '美国住宅通电比例', src: 'HSUS Db234–241',
+      anchors: { invent: [1882, '1882 年第一座中央电站'], product: [1882, '1882 年第一座中央电站'] },
+      pts: [[1907, 8.0], [1920, 34.7], [1930, 68.2], [1940, 78.7]],
+      bands: [[1919, 1929, '制造业生产率加速']] },
+    { k: 'net', name: '互联网', what: '美国成年人上网比例', src: 'Pew',
+      anchors: { invent: [1969.8, '1969 年 ARPANET 第一条消息'], product: [1995, '1995 年大众浏览器与商业化'] },
+      pts: [[1995, 14, 'alt'], [2000, 52], [2005, 68], [2010, 76], [2015, 86], [2018, 89], [2021, 93], [2023, 95], [2025, 96]],
+      bands: [[1995, 2004, '劳动生产率加速']], marks: [[2000.2, '纳斯达克见顶']] },
+    { k: 'ai', name: 'AI', what: '美国成年人用过 ChatGPT 的比例', src: 'Pew',
+      anchors: { invent: [2017.45, '2017 年 6 月论文上传'], product: [2022.92, '2022 年 11 月 ChatGPT 上线'] },
+      pts: [[2023.2, 14, 'alt'], [2023.55, 18], [2024.1, 23], [2025.15, 34], [2026.13, 44]],
+      bands: [], now: 2026.75 },
+  ];
+  const fmtY = y => { const yr = Math.floor(y); const m = Math.round((y - yr) * 12) + 1; return y % 1 === 0 ? `${yr}` : `${yr}-${String(Math.min(m, 12)).padStart(2, '0')}`; };
+  const wrap = document.getElementById('tc');
+  const W = 760, H = 380, m = { l: 44, r: 92, t: 28, b: 46 };
+  const XMAX = 60;
+  let mode = 'invent';
+  const x = t => m.l + (t / XMAX) * (W - m.l - m.r);
+  const y = v => m.t + (1 - v / 100) * (H - m.t - m.b);
+
+  function draw() {
+    const NS = 'http://www.w3.org/2000/svg';
+    let g = '';
+    // grid + axes
+    for (let v = 0; v <= 100; v += 25) g += `<line class="tc-grid" x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/><text class="tc-tick" x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end">${v}%</text>`;
+    for (let t = 0; t <= XMAX; t += 10) g += `<text class="tc-tick" x="${x(t)}" y="${H - m.b + 18}" text-anchor="middle">${t}</text>`;
+    g += `<line class="tc-axis" x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}"/>`;
+    g += `<text class="tc-axt" x="${(m.l + W - m.r) / 2}" y="${H - 6}" text-anchor="middle">从起点算起的年数</text>`;
+    // bands
+    S.forEach(s => {
+      const a = s.anchors[mode][0];
+      s.bands.forEach(([b0, b1, lab], j) => {
+        const x0 = x(Math.max(0, b0 - a)), x1 = x(Math.min(XMAX, b1 - a));
+        if (x1 <= m.l) return;
+        g += `<rect class="tc-band ${s.k}" x="${x0}" y="${m.t}" width="${Math.max(2, x1 - x0)}" height="${y(0) - m.t}"/>`;
+        g += `<text class="tc-blab" x="${x0 + 4}" y="${y(0) - 8}">${s.name}：${lab}</text>`;
+      });
+      (s.marks || []).forEach(([yr, lab]) => {
+        const xx = x(yr - a);
+        g += `<line class="tc-mark" x1="${xx}" x2="${xx}" y1="${y(0) - 50}" y2="${y(0) - 22}"/><text class="tc-blab" x="${xx + 4}" y="${y(0) - 40}">${lab}</text>`;
+      });
+    });
+    // lines + points
+    S.forEach(s => {
+      const a = s.anchors[mode][0];
+      const main = s.pts.filter(p => !p[2]);
+      const d = main.map((p, i) => `${i ? 'L' : 'M'}${x(p[0] - a).toFixed(1)},${y(p[1]).toFixed(1)}`).join('');
+      g += `<path class="tc-line ${s.k}" d="${d}"/>`;
+      const alt = s.pts.find(p => p[2]);
+      if (alt) { const n = main[0]; g += `<path class="tc-line ${s.k} dash" d="M${x(alt[0] - a)},${y(alt[1])}L${x(n[0] - a)},${y(n[1])}"/>`; }
+      s.pts.forEach(p => {
+        const cx = x(p[0] - a), cy = y(p[1]);
+        g += `<g class="tc-pt" tabindex="0" data-tip="${s.name} · ${fmtY(p[0])}（第 ${(p[0] - a).toFixed(1)} 年）：${p[1]}%${p[2] ? '，口径不同的早期调查' : ''}"><circle class="hit" cx="${cx}" cy="${cy}" r="11"/><circle class="dot ${s.k}${p[2] ? ' hollow' : ''}" cx="${cx}" cy="${cy}" r="4"/></g>`;
+      });
+      const last = s.pts[s.pts.length - 1];
+      g += `<text class="tc-dl" x="${x(last[0] - a) + 9}" y="${y(last[1]) + 4}">${s.name}</text>`;
+      if (s.now) {
+        const xn = x(s.now - a);
+        g += `<line class="tc-now" x1="${xn}" x2="${xn}" y1="${m.t}" y2="${y(0)}"/><text class="tc-nowt" x="${xn + 6}" y="${m.t + 4}">AI 现在在这里（2026 年秋）</text>`;
+      }
+    });
+    wrap.querySelector('svg').innerHTML = g;
+    // anchor notes
+    document.getElementById('tcAnchors').innerHTML = S.map(s => `<span><i class="sw ${s.k}"></i>${s.name}：${s.anchors[mode][1]}</span>`).join('');
+    bindTips();
+  }
+
+  const tip = document.getElementById('tcTip');
+  function bindTips() {
+    wrap.querySelectorAll('.tc-pt').forEach(pt => {
+      const show = () => {
+        tip.textContent = pt.dataset.tip; tip.hidden = false;
+        const c = pt.querySelector('.dot').getBoundingClientRect(), r = wrap.getBoundingClientRect();
+        tip.style.left = Math.min(r.width - 220, Math.max(0, c.left - r.left - 100)) + 'px';
+        tip.style.top = (c.top - r.top - 44) + 'px';
+      };
+      pt.addEventListener('mouseenter', show); pt.addEventListener('focus', show);
+      pt.addEventListener('mouseleave', () => tip.hidden = true); pt.addEventListener('blur', () => tip.hidden = true);
+      pt.addEventListener('touchstart', show, { passive: true });
+    });
+  }
+
+  document.querySelectorAll('#tcMode button').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.m;
+    document.querySelectorAll('#tcMode button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    draw(); table();
+  }));
+
+  function table() {
+    document.getElementById('tcTable').innerHTML = `<table><thead><tr><th>技术</th><th>指标</th><th>年份</th><th>从起点算起</th><th>数值</th></tr></thead><tbody>${
+      S.flatMap(s => s.pts.map(p => `<tr><td>${s.name}</td><td>${s.what}${p[2] ? '（早期调查，口径不同）' : ''}</td><td>${fmtY(p[0])}</td><td>${(p[0] - s.anchors[mode][0]).toFixed(1)} 年</td><td>${p[1]}%</td></tr>`)).join('')}</tbody></table>`;
+  }
+  draw(); table();
+})();
+
+/* ---------- overlay vs reorganize ---------- */
+(function () {
+  const R = [
+    ['电力', '把蒸汽机换成一台大电动机，天轴、皮带、厂房照旧', '每台机器一台电动机，厂房改成单层，机器按工序排列', 'electricity'],
+    ['印刷术', '有了印刷机，印的还是原来那些书', '印商人手册和簿记教材；把书改成便携的八开本', 'printing'],
+    ['胶片', '柯达 1975 年就有了数码相机原型，2012 年破产', '富士裁员一万人，把胶片化学转去做护肤品和药', 'kodak'],
+    ['互联网', 'Borders 把网上书店外包给亚马逊', '盖茨的《互联网浪潮》备忘录，微软整体转向', 'internet'],
+    ['计算机', '买了电脑，流程不变，统计里看不到回报', '信息技术和工作组织的重组一起推进', 'computer'],
+    ['AI', 'Google 2020 年做出聊天机器人，没有发布', '一年后有人拿走论文做出 GPT，2022 年 ChatGPT 上线', 'google'],
+  ];
+  document.getElementById('contrast').innerHTML = `<div class="ct-head"><span></span><span>叠加在旧系统上</span><span>围绕它重新组织</span></div>` +
+    R.map(r => `<div class="ct-row"><span class="ct-k">${r[0]}</span><span class="ct-a">${r[1]}</span><span class="ct-b">${r[2]}<a class="ct-link" href="#case-${r[3]}">案例</a></span></div>`).join('');
 })();
 
 </script>
