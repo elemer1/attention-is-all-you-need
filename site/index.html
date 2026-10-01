@@ -341,6 +341,27 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
   .ct-b::before { content: "重组："; font-family: var(--f-ui); font-size: .74rem; color: var(--eng); }
 }
 
+/* ---------- movement III ---------- */
+.abl-t { margin: var(--s3) 0 var(--s1); font-family: var(--f-display); font-weight: 900; font-size: 1.1rem; }
+.abl-d, .abl-n { max-width: var(--col); font-size: .95rem; line-height: 1.75; margin: 0 0 var(--s3); }
+.abl-n { margin-top: var(--s3); }
+.tc-line.seed { stroke-width: 1; opacity: .3; }
+.abl-cross { stroke: var(--muted); stroke-width: 1; }
+.att-ctl { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: center; font-family: var(--f-ui); font-size: .85rem; margin-bottom: var(--s4); }
+.att-ctl select { font: inherit; padding: .3rem .5rem; border: 1px solid var(--rule); background: var(--surface); color: var(--fg); border-radius: 4px; }
+.att-best { font: inherit; padding: .3rem .7rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); border-radius: 999px; cursor: pointer; }
+.att-toks { display: flex; flex-wrap: wrap; gap: .4rem; padding: var(--s4); background: var(--surface); border: 1px solid var(--rule); }
+.tk { font: inherit; display: flex; flex-direction: column; align-items: center; gap: .1rem; min-width: 3rem; padding: .35rem .55rem; border-radius: 4px; cursor: pointer;
+  border: 1px solid var(--rule); color: var(--fg);
+  background: color-mix(in srgb, var(--s-ai) calc(var(--w) * 100%), var(--surface)); }
+.tk .tw { font-family: var(--f-latin); font-size: 1.15rem; line-height: 1.2; }
+.tk .tv { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tk.sp .tw { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.tk.sel { border: 2px solid var(--fg); background: var(--surface); }
+.tk[style*="--w:0.3"], .tk[style*="--w:0.4"], .tk[style*="--w:0.5"], .tk[style*="--w:0.6"], .tk[style*="--w:0.7"], .tk[style*="--w:0.8"], .tk[style*="--w:0.9"], .tk[style*="--w:1"] { color: var(--surface); }
+.tk[style*="--w:0.3"] .tv, .tk[style*="--w:0.4"] .tv, .tk[style*="--w:0.5"] .tv, .tk[style*="--w:0.6"] .tv, .tk[style*="--w:0.7"] .tv, .tk[style*="--w:0.8"] .tv, .tk[style*="--w:0.9"] .tv, .tk[style*="--w:1"] .tv, .tk[style*="--w:0.3"] .tw, .tk[style*="--w:0.4"] .tw, .tk[style*="--w:0.5"] .tw, .tk[style*="--w:0.6"] .tw, .tk[style*="--w:0.7"] .tw, .tk[style*="--w:0.8"] .tw, .tk[style*="--w:0.9"] .tw, .tk[style*="--w:1"] .tw { color: var(--surface); }
+.att-read { font-size: .95rem; line-height: 1.75; max-width: var(--col); margin: var(--s3) 0 0; min-height: 3.5em; }
+
 @media (max-width: 52rem) {
   .four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .inv li { grid-template-columns: 4.5rem 1fr; }
@@ -384,7 +405,7 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
     <a href="#prelude"><span class="n">0</span><span class="t">序章</span><span class="d">为什么先谈重要性</span><span class="status done">已上线</span></a>
     <a href="#m1"><span class="n">I</span><span class="t">重要性</span><span class="d">断层；与《原理》《物种起源》、相对论并列；与伟大的工程发明并列；中心悖论</span><span class="status done">已上线</span></a>
     <a href="#m2"><span class="n">II</span><span class="t">表达</span><span class="d">它是怎么被造出来的：2016 年成型，2017 年春爆发；标注版论文；读书会指南</span><span class="status done">已上线</span></a>
-    <a href="#m3"><span class="n">III</span><span class="t">理解</span><span class="d">拆零件；我们弄懂了什么，还没弄懂什么</span><span class="status">制作中</span></a>
+    <a href="#m3"><span class="n">III</span><span class="t">理解</span><span class="d">拆零件（真实实验）；注意力游戏（真实模型）；弄懂了什么，还没弄懂什么</span><span class="status done">已上线</span></a>
     <a href="#m4"><span class="n">IV</span><span class="t">处境与行动</span><span class="d">为什么被低估；互联网与电力的滞后；过渡期的不对称优势；行动不是投资</span><span class="status done">已上线</span></a>
     <a href="#cases"><span class="n">⁂</span><span class="t">历史案例库</span><span class="d">20 个已核实的案例：谁把新技术叠加在旧系统上，谁围绕它重新组织</span><span class="status done">已上线</span></a>
   </nav>
@@ -616,10 +637,72 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
       <h2>理解</h2>
       <div class="en">Understanding</div>
     </div>
-    <div class="outline">
-      <section><h4>拆零件</h4><p>用真实的小规模实验，拿掉位置编码、拿掉缩放、拿掉预热，看模型会变成什么样。</p></section>
-      <section><h4>注意力游戏</h4><p>点一个词，看它在一个真实的模型里注意哪些词。</p></section>
-      <section><h4>弄懂了什么，还没弄懂什么</h4><p>规模定律、上下文学习、可解释性研究，以及仍然空着的部分。</p></section>
+
+    <div class="prose">
+      <p>按怀特海的顺序，理解放在最后。这一乐章不讲公式，只做两件事：把论文里的几个零件真的拆下来，看模型会变成什么样；再打开一个真实的模型，看它的注意力落在哪里。最后说清楚，我们到底弄懂了多少。</p>
+
+      <h3 id="m3-1"><span class="sec">3.1</span>拆零件</h3>
+      <p>第二乐章的标注版论文里，有三处被标成“调参”或“后来被改掉”：位置编码、注意力分数的缩放、层归一化的位置。它们到底起什么作用？我们在一台普通电脑上训练了几个很小的 Transformer，每次只拆掉一个零件，每种情况用三个不同的随机种子各跑一遍。<sup class="fn"><a href="#n3-1" id="r3-1">1</a></sup></p>
+    </div>
+
+    <figure class="fig" aria-labelledby="abl-cap">
+      <div class="fig-label">图 ⑥ · 拆零件（真实实验）</div>
+      <div class="rowpick" id="ablPick" role="group" aria-label="选择实验"></div>
+      <div class="abl" id="abl"></div>
+      <figcaption id="abl-cap">粗线是三个随机种子的平均，细线是每一次单独的运行。纵轴是在测试数据上的准确率。所有数字由仓库里的 <span class="mono">experiments/ablations.py</span> 生成，固定种子，可以重跑。这些是玩具规模的模型，用来让零件的作用看得见，不代表大模型上的具体数值。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3 id="m3-2"><span class="sec">3.2</span>注意力落在哪里</h3>
+      <p>Google 在 2017 年介绍 Transformer 的博客里，用过一对句子说明注意力在做什么：两句话只差一个词，“it”指代的东西就变了。这个例子后来被反复引用，最常见的写法是下面这两句。<sup class="fn"><a href="#n3-2" id="r3-2">2</a></sup></p>
+      <p>下面的权重来自一个真实的模型 BERT。它是 2018 年 Google 发布的 Transformer 编码器，也就是 2017 年论文那张结构图的左半边。点一个词，看它把注意力分给了哪些词。</p>
+    </div>
+
+    <figure class="fig" aria-labelledby="att-cap">
+      <div class="fig-label">图 ⑧ · 注意力游戏（真实模型）</div>
+      <div class="rowpick" id="attSent" role="group" aria-label="选择句子"></div>
+      <div class="att-ctl">
+        <label for="attLayer">层</label>
+        <select id="attLayer"></select>
+        <label for="attHead">头</label>
+        <select id="attHead"></select>
+        <button type="button" id="attBest" class="att-best">回到第 7 层第 11 头</button>
+      </div>
+      <div class="att-toks" id="attToks" role="group" aria-label="点一个词"></div>
+      <p class="att-read" id="attRead" aria-live="polite"></p>
+      <figcaption id="att-cap">模型：bert-base-uncased，12 层 × 12 个头。颜色越深，表示被点中的词分给这个词的注意力越多；每一行加起来是 100%。[CLS] 和 [SEP] 是模型自带的特殊标记，很多头会把大量注意力“停放”在它们上面。第 7 层第 11 头是我们用一个公式在全部 144 个头里找出来的：它最能区分这两句话里的“it”。其他大多数头并不这样，你可以换着看。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>这一个头的表现很像人的理解：说“太累了”，它就去看“动物”；说“太宽了”，它就去看“街道”。可是要小心这个画面。它是 144 个头里挑出来的一个；同一个模型里的其他头，看的是标点、下一个词、句子的边界，或者什么也说不清。注意力权重本身也不等于“解释”：研究者已经发现，权重高的地方不一定就是模型做出判断的原因。<sup class="fn"><a href="#n3-3" id="r3-3">3</a></sup></p>
+
+      <h3 id="m3-3"><span class="sec">3.3</span>弄懂了什么，还没弄懂什么</h3>
+      <p>论文发表后的九年里，人们对它的理解大致分成三层。</p>
+      <dl class="traits">
+        <div><dt>弄懂了</dt><dd>它会随规模稳定地变好。2020 年 OpenAI 的研究发现，模型的损失随参数量、数据量和计算量按幂律下降，可以提前预测；2022 年 DeepMind 修正了数据和参数该怎样搭配。<sup class="fn"><a href="#n3-4" id="r3-4">4</a></sup>这条规律直接决定了过去几年的投资方向。</dd></div>
+        <div><dt>部分弄懂</dt><dd>它能在对话里现学现用。2020 年的 GPT-3 论文展示了“上下文学习”：给几个例子，模型就能做一个没专门训练过的任务。2022 年 Anthropic 的研究在模型内部找到了一种叫“归纳头”的结构，它可能是这种能力的重要来源之一。<sup class="fn"><a href="#n3-5" id="r3-5">5</a></sup></dd></div>
+        <div><dt>还没弄懂</dt><dd>它内部到底在想什么。可解释性研究已经能在大模型里找出数以百万计的“特征”，并追踪一部分推理的路径，但离完整地说清一个模型为什么给出某个回答，还很远。有些看起来突然“涌现”的能力，后来被指出可能部分来自测量方式。它为什么会一本正经地编造事实，也还没有根治的办法。<sup class="fn"><a href="#n3-6" id="r3-6">6</a></sup></dd></div>
+      </dl>
+      <p>这就是第一乐章说的那件事：人类造出了一个能力超出我们理解的东西。蒸汽机用了几十年等来热力学。Transformer 的“热力学”，现在还在写。</p>
+
+      <h3 id="m3-4"><span class="sec">3.4</span>还没被充分开发的</h3>
+      <p>说它“还没被充分开发”，可以有三层意思。</p>
+      <p>第一层是技术本身。论文结论里写下的计划，扩展到图像、音频和视频，几年内就实现了；可是它最根本的代价还在：句子越长，注意力的计算量按长度的平方增长。这一点催生了一整批替代和改进的尝试，至今没有定论。<sup class="fn"><a href="#n3-7" id="r3-7">7</a></sup></p>
+      <p>第二层是理解。我们还不能可靠地知道它会在哪里出错、为什么出错。在这一层没打通之前，它在医疗、法律、教育这些容错很低的地方，都只能被小心地使用。</p>
+      <p>第三层，也是第四乐章已经讲过的：围绕它的组织和制度，几乎还没有开始重建。电力在住宅里普及了三分之一的时候，工厂还在用天轴。技术走在前面，理解和组织跟在后面，这中间的距离，就是“没被充分开发”的部分，也是机会所在的部分。</p>
+    </div>
+
+    <div class="notes">
+      <h4>注</h4>
+      <ol>
+        <li id="n3-1"><span class="lv V">V</span>实验代码：<span class="mono">experiments/tiny.py</span>（从零写的编码器，每个零件可单独开关）与 <span class="mono">experiments/ablations.py</span>（任务、超参数、种子）。结果文件 <span class="mono">site/data/ablations.json</span>。三个零件分别对应论文 §3.5、§3.2.1、§3.1。层归一化与预热的关系见 Xiong et al. 2020（<a href="https://arxiv.org/abs/2002.04745">arXiv 2002.04745</a>）。</li>
+        <li id="n3-2"><span class="lv S">S</span>Google Research 博客 2017-08-31 描述了这对句子（“in the first sentence pair ‘it’ refers to the animal, and in the second to the street”），句子本身在博客的图里：<a href="https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/">research.google</a>。本站采用的文字写法见 Jay Alammar, <a href="https://jalammar.github.io/illustrated-transformer/"><i>The Illustrated Transformer</i></a>。</li>
+        <li id="n3-3"><span class="lv V">V</span>注意力权重：由 <span class="mono">experiments/export_attention.py</span> 从 <a href="https://huggingface.co/google-bert/bert-base-uncased">bert-base-uncased</a> 直接导出，未做任何平滑或修改。“注意力不等于解释”：Jain &amp; Wallace, “Attention is not Explanation”, NAACL 2019（<a href="https://arxiv.org/abs/1902.10186">arXiv 1902.10186</a>）；Wiegreffe &amp; Pinter 2019 对此有反驳（<a href="https://arxiv.org/abs/1908.04626">arXiv 1908.04626</a>）。</li>
+        <li id="n3-4"><span class="lv V">V</span>Kaplan et al., “Scaling Laws for Neural Language Models”, 2020（<a href="https://arxiv.org/abs/2001.08361">arXiv 2001.08361</a>）；Hoffmann et al., “Training Compute-Optimal Large Language Models”, 2022（<a href="https://arxiv.org/abs/2203.15556">arXiv 2203.15556</a>）。</li>
+        <li id="n3-5"><span class="lv V">V</span>Brown et al., “Language Models are Few-Shot Learners”, 2020（<a href="https://arxiv.org/abs/2005.14165">arXiv 2005.14165</a>）；Olsson et al., “In-context Learning and Induction Heads”, 2022（<a href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html">transformer-circuits.pub</a>）。</li>
+        <li id="n3-6"><span class="lv V">V</span>Templeton et al., “Scaling Monosemanticity”, 2024（<a href="https://transformer-circuits.pub/2024/scaling-monosemanticity/">transformer-circuits.pub</a>）；Lindsey et al., “On the Biology of a Large Language Model”, 2025（<a href="https://transformer-circuits.pub/2025/attribution-graphs/biology.html">transformer-circuits.pub</a>）；Schaeffer et al., “Are Emergent Abilities of Large Language Models a Mirage?”, NeurIPS 2023（<a href="https://arxiv.org/abs/2304.15004">arXiv 2304.15004</a>）。</li>
+        <li id="n3-7"><span class="lv V">V</span>图像：Dosovitskiy et al., ViT, 2020（<a href="https://arxiv.org/abs/2010.11929">arXiv 2010.11929</a>）。长度平方的代价与替代方案之一：Gu &amp; Dao, Mamba, 2023（<a href="https://arxiv.org/abs/2312.00752">arXiv 2312.00752</a>）。</li>
+      </ol>
     </div>
   </article>
 
@@ -749,9 +832,11 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
 </main>
 
 <footer>
-  这是项目的预览版本（M3）。第三乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
+  这是项目的预览版本（M4）。四个乐章都已上线。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
 </footer>
 
+<script id="data-ablations" type="application/json">{}</script>
+<script id="data-attention" type="application/json">{}</script>
 <script>
 /* ---------- hero arcs ---------- */
 (function () {
@@ -1372,6 +1457,134 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
   ];
   document.getElementById('contrast').innerHTML = `<div class="ct-head"><span></span><span>叠加在旧系统上</span><span>围绕它重新组织</span></div>` +
     R.map(r => `<div class="ct-row"><span class="ct-k">${r[0]}</span><span class="ct-a">${r[1]}</span><span class="ct-b">${r[2]}<a class="ct-link" href="#case-${r[3]}">案例</a></span></div>`).join('');
+})();
+
+
+/* ---------- ⑥ ablations (real runs, data inlined from site/data/ablations.json) ---------- */
+(function () {
+  const D = JSON.parse(document.getElementById('data-ablations').textContent);
+  const pct = v => Math.round(v * 100) + '%';
+  const EX = [
+    { k: 'pos', tab: '位置编码', title: '谁咬了谁',
+      desc: `句子只有三个词：“X 咬 Y”，模型要回答是谁咬的。${D.pos.nouns.length} 种动物和人两两组合，共 ${D.pos.pairs} 个句子，“狗咬人”和“人咬狗”都在里面，答案相反。`,
+      series: [['with', '有位置编码', 'ai'], ['without', '没有位置编码', 'elec']],
+      note: r => `没有位置编码时，“狗咬人”和“人咬狗”对模型来说是同一袋词，它最多只能猜对一半：最终准确率 ${pct(r.without)}。加上位置编码：${pct(r.with)}。论文 §3.5 说位置编码用正弦函数还是可学习的“几乎一样”，但不能没有。` },
+    { k: 'scale', tab: '除以 √dₖ', title: '在一串配对里查找',
+      desc: `给模型 ${D.scale.pairs} 个“钥匙—值”配对，最后问其中一把钥匙对应的值。模型只有一个注意力头，宽度 d<sub>k</sub> = ${D.scale.d_k}。`,
+      series: [['with', '除以 √dₖ', 'ai'], ['without', '不除', 'elec']],
+      note: r => { const p = D.scale.init_attention_peak; const m = a => (a.reduce((x, y) => x + y, 0) / a.length).toFixed(2);
+        return `训练开始前，不除以 √d<sub>k</sub> 的模型，每个位置平均把 ${Math.round(m(p.without) * 100)}% 的注意力压在单个词上（除以之后是 ${Math.round(m(p.with) * 100)}%）：softmax 一开始就被推到了饱和区，梯度很小。这正是论文 §3.2.1 “猜测”的现象。${D.scale.steps} 步后，准确率 ${pct(r.with)} 对 ${pct(r.without)}。`; } },
+    { k: 'norm', tab: '层归一化与预热', title: '深一点的模型，大一点的学习率',
+      desc: `同样的查找任务，模型加深到 ${D.norm.layers} 层，学习率 ${D.norm.lr}。比较论文原版的 Post-LN、加上 ${D.norm.warmup} 步预热的 Post-LN，以及后来通行的 Pre-LN。`,
+      series: [['pre_nowarm', 'Pre-LN，不预热', 'ai'], ['post_warm', 'Post-LN，预热', 'net'], ['post_nowarm', 'Post-LN，不预热', 'elec']],
+      note: r => `论文原版的 Post-LN 不加预热，在这个设置下根本训练不起来：${pct(r.post_nowarm)}，和瞎猜差不多。加上预热就能训练（${pct(r.post_warm)}）；把归一化挪到前面，不预热也行（${pct(r.pre_nowarm)}）。论文里那个没有解释的 “warmup_steps = 4000”，原来是在给这个不稳定打补丁。` },
+  ];
+  const pick = document.getElementById('ablPick');
+  const box = document.getElementById('abl');
+  let cur = 0;
+  EX.forEach((e, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.id = 'abl-' + e.k; b.textContent = e.tab;
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', () => { cur = i; pick.querySelectorAll('button').forEach((x, j) => x.setAttribute('aria-pressed', j === i ? 'true' : 'false')); render(); });
+    pick.appendChild(b);
+  });
+
+  function meanCurve(runs) { // runs: [[ [step, acc, ...], ... ], ...]
+    return runs[0].map((p, i) => [p[0], runs.reduce((s, r) => s + r[i][1], 0) / runs.length]);
+  }
+  function render() {
+    const e = EX[cur], data = D[e.k];
+    const W = 680, H = 300, m = { l: 44, r: 128, t: 16, b: 40 };
+    const steps = data.steps;
+    const x = s => m.l + (s / steps) * (W - m.l - m.r), y = v => m.t + (1 - v) * (H - m.t - m.b);
+    const means = {}, finals = {};
+    e.series.forEach(([k]) => { means[k] = meanCurve(data.runs[k]); finals[k] = means[k][means[k].length - 1][1]; });
+    let g = '';
+    for (let v = 0; v <= 1.0001; v += 0.25) g += `<line class="tc-grid" x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/><text class="tc-tick" x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end">${Math.round(v * 100)}%</text>`;
+    const tickStep = steps > 1000 ? 500 : 100;
+    for (let s = 0; s <= steps; s += tickStep) g += `<text class="tc-tick" x="${x(s)}" y="${H - m.b + 18}" text-anchor="middle">${s}</text>`;
+    g += `<line class="tc-axis" x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}"/><text class="tc-axt" x="${(m.l + W - m.r) / 2}" y="${H - 4}" text-anchor="middle">训练步数</text>`;
+    const path = c => c.map((p, i) => `${i ? 'L' : 'M'}${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join('');
+    e.series.forEach(([k, , col]) => { data.runs[k].forEach(r => { g += `<path class="tc-line ${col} seed" d="${path(r)}"/>`; }); });
+    // end labels, nudged apart
+    const ends = e.series.map(([k, lab, col]) => ({ k, lab, col, yy: y(finals[k]) })).sort((a, b) => a.yy - b.yy);
+    for (let i = 1; i < ends.length; i++) if (ends[i].yy - ends[i - 1].yy < 15) ends[i].yy = ends[i - 1].yy + 15;
+    e.series.forEach(([k, , col]) => { g += `<path class="tc-line ${col}" d="${path(means[k])}"/>`; });
+    ends.forEach(o => { g += `<text class="tc-dl" x="${W - m.r + 8}" y="${o.yy + 4}">${o.lab} ${pct(finals[o.k])}</text>`; });
+    g += `<line class="abl-cross" id="ablCross" x1="0" x2="0" y1="${m.t}" y2="${y(0)}" visibility="hidden"/><rect class="hit" id="ablHit" x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${y(0) - m.t}"/>`;
+    box.innerHTML = `<h4 class="abl-t">${e.title}</h4><p class="abl-d">${e.desc}</p>
+      <div class="tc-wrap abl-wrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${e.title}：准确率随训练步数的变化"><g>${g}</g></svg><div class="tc-tip" id="ablTip" hidden></div></div>
+      <p class="abl-n">${e.note(finals)}</p>
+      <details class="tc-tbl"><summary>查看数据表</summary><div><table><thead><tr><th>步数</th>${e.series.map(s => `<th>${s[1]}（三次平均）</th>`).join('')}</tr></thead><tbody>${
+        means[e.series[0][0]].map((p, i) => `<tr><td>${p[0]}</td>${e.series.map(([k]) => `<td>${pct(means[k][i][1])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></details>`;
+    const svg = box.querySelector('svg'), hit = box.querySelector('#ablHit'), cross = box.querySelector('#ablCross'), tip = box.querySelector('#ablTip'), wrap = box.querySelector('.abl-wrap');
+    const move = ev => {
+      const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+      const sp = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const s = Math.max(0, Math.min(steps, (sp.x - m.l) / (W - m.l - m.r) * steps));
+      const ref = means[e.series[0][0]];
+      let i = 0; ref.forEach((p, j) => { if (Math.abs(p[0] - s) < Math.abs(ref[i][0] - s)) i = j; });
+      const st = ref[i][0];
+      cross.setAttribute('x1', x(st)); cross.setAttribute('x2', x(st)); cross.setAttribute('visibility', 'visible');
+      tip.innerHTML = `第 ${st} 步<br>` + e.series.map(([k, lab]) => `${lab}：${pct(means[k][i][1])}`).join('<br>');
+      tip.hidden = false;
+      const r = wrap.getBoundingClientRect();
+      tip.style.left = Math.min(r.width - 224, Math.max(0, ev.clientX - r.left + 12)) + 'px';
+      tip.style.top = '12px';
+    };
+    hit.addEventListener('mousemove', move);
+    hit.addEventListener('mouseleave', () => { tip.hidden = true; cross.setAttribute('visibility', 'hidden'); });
+    hit.addEventListener('touchstart', ev => move(ev.touches[0]), { passive: true });
+    hit.addEventListener('touchmove', ev => move(ev.touches[0]), { passive: true });
+  }
+  render();
+})();
+
+/* ---------- ⑧ attention game (real BERT weights, inlined from site/data/attention.json) ---------- */
+(function () {
+  const D = JSON.parse(document.getElementById('data-attention').textContent);
+  const BEST = D.it_head;
+  const LABEL = { tired: '……because it was too tired.', wide: '……because it was too wide.', dogman: 'The dog bit the man.', mandog: 'The man bit the dog.' };
+  const sentPick = document.getElementById('attSent'), layerSel = document.getElementById('attLayer'), headSel = document.getElementById('attHead');
+  const toksBox = document.getElementById('attToks'), read = document.getElementById('attRead');
+  let si = 0, L = BEST.layer - 1, H = BEST.head - 1, ti = null;
+  for (let i = 1; i <= 12; i++) { layerSel.add(new Option('第 ' + i + ' 层', i - 1)); }
+  headSel.add(new Option('12 个头平均', -1));
+  for (let i = 1; i <= 12; i++) { headSel.add(new Option('第 ' + i + ' 头', i - 1)); }
+  D.sentences.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.id = 'att-' + s.key; b.textContent = LABEL[s.key];
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', () => { si = i; ti = null; sentPick.querySelectorAll('button').forEach((x, j) => x.setAttribute('aria-pressed', j === i ? 'true' : 'false')); render(); });
+    sentPick.appendChild(b);
+  });
+  layerSel.addEventListener('change', () => { L = +layerSel.value; render(); });
+  headSel.addEventListener('change', () => { H = +headSel.value; render(); });
+  document.getElementById('attBest').addEventListener('click', () => { L = BEST.layer - 1; H = BEST.head - 1; render(); });
+
+  function row(s, i) {
+    if (H >= 0) return s.att[L][H][i].map(v => v / D.scale);
+    const n = s.tokens.length, acc = new Array(n).fill(0);
+    for (let h = 0; h < 12; h++) s.att[L][h][i].forEach((v, j) => acc[j] += v / D.scale / 12);
+    return acc;
+  }
+  function render() {
+    const s = D.sentences[si];
+    if (ti === null) { const it = s.tokens.indexOf('it'); ti = it >= 0 ? it : s.tokens.indexOf('bit'); }
+    layerSel.value = L; headSel.value = H;
+    const w = row(s, ti);
+    toksBox.innerHTML = s.tokens.map((t, j) => {
+      const sp = t === '[CLS]' || t === '[SEP]';
+      const a = j === ti ? 0 : w[j];
+      return `<button type="button" class="tk${j === ti ? ' sel' : ''}${sp ? ' sp' : ''}" data-j="${j}" style="--w:${a.toFixed(3)}" aria-pressed="${j === ti}"><span class="tw">${t.replace('##', '·')}</span><span class="tv">${j === ti ? '·' : Math.round(w[j] * 100) + '%'}</span></button>`;
+    }).join('');
+    toksBox.querySelectorAll('.tk').forEach(b => b.addEventListener('click', () => { ti = +b.dataset.j; render(); }));
+    const top = w.map((v, j) => [v, j]).filter(([, j]) => j !== ti).sort((a, b) => b[0] - a[0]).slice(0, 3);
+    read.innerHTML = `第 ${L + 1} 层，${H >= 0 ? '第 ' + (H + 1) + ' 头' : '12 个头平均'}：“<b>${s.tokens[ti]}</b>”看得最多的是 ` +
+      top.map(([v, j]) => `“${s.tokens[j]}” ${Math.round(v * 100)}%`).join('，') + `。它分给自己的是 ${Math.round(w[ti] * 100)}%。`;
+  }
+  render();
 })();
 
 </script>
