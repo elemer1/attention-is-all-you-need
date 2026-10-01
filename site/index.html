@@ -207,6 +207,76 @@ figure.fig > figcaption { font-family: var(--f-ui); font-size: .8rem; color: var
 
 footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--s7); border-top: 1px solid var(--rule); font-family: var(--f-ui); font-size: .8rem; color: var(--muted); }
 
+/* ---------- movement II ---------- */
+.cast { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 2.6rem); z-index: 5; display: flex; flex-wrap: wrap; gap: .35rem; padding: .55rem 0; background: var(--bg); border-bottom: 1px solid var(--rule); margin-bottom: var(--s4); }
+.who { font-family: var(--f-latin); font-size: .85rem; padding: .05rem .55rem; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); opacity: .45; transition: opacity .3s, background .3s, color .3s; }
+.who.in { opacity: 1; color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.who.left { opacity: 1; color: var(--muted); border-style: dashed; background: transparent; }
+.gen { list-style: none; margin: 0; padding: 0; position: relative; }
+.gen::before { content: ""; position: absolute; left: 6.2rem; top: .4rem; bottom: .4rem; width: 2px; background: var(--rule); }
+.gen li { display: grid; grid-template-columns: 5.4rem 1fr; gap: var(--s5); padding-block: var(--s3); position: relative; }
+.gen li::before { content: ""; position: absolute; left: calc(6.2rem - 4px); top: 1.15rem; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.gen li.key::before { background: var(--accent); border-color: var(--accent); }
+.gen .gd { font-family: var(--f-mono); font-size: .76rem; color: var(--muted); text-align: right; padding-top: .3rem; font-variant-numeric: tabular-nums; }
+.gen .gb { min-width: 0; padding-left: var(--s4); }
+.gen .gt { font-family: var(--f-display); font-weight: 600; font-size: 1.02rem; line-height: 1.5; }
+.gen .gx { font-size: .94rem; line-height: 1.75; margin: .15rem 0 0; }
+.gen .joins { margin-top: .3rem; display: flex; flex-wrap: wrap; gap: .3rem; }
+.gen .joins span { font-family: var(--f-ui); font-size: .72rem; color: var(--accent); }
+.gen .joins span.out { color: var(--muted); }
+.gen details { margin-top: .35rem; }
+.gen summary { font-family: var(--f-ui); font-size: .78rem; color: var(--accent); cursor: pointer; width: fit-content; }
+.gen .q { margin: .4rem 0 0; padding-left: var(--s3); border-left: 2px solid var(--accent); font-size: .92rem; line-height: 1.7; }
+.gen .q .latin { display: block; color: var(--muted); font-size: .95rem; margin-top: .2rem; }
+.foot-card { margin-top: var(--s6); border: 1px solid var(--rule); background: var(--surface); padding: var(--s5); }
+.fc-head { font-family: var(--f-display); font-weight: 900; font-size: 1.1rem; display: flex; flex-wrap: wrap; gap: .3rem 1rem; align-items: baseline; }
+.fc-head .mono { font-weight: 400; color: var(--muted); }
+.fc-note { font-size: .92rem; color: var(--muted); max-width: var(--col); margin: var(--s2) 0 var(--s4); }
+.fc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: var(--s4) var(--s5); }
+.fc-grid div { min-width: 0; border-top: 1px solid var(--rule); padding-top: var(--s3); }
+.fc-grid b { font-family: var(--f-latin); font-weight: 600; font-size: 1rem; color: var(--accent); }
+.fc-grid .en { font-family: var(--f-latin); font-size: .92rem; line-height: 1.55; color: var(--muted); margin: .25rem 0 .35rem; }
+.fc-grid .zh { font-size: .92rem; line-height: 1.7; margin: 0; }
+
+.traits { margin: var(--s4) 0 var(--s5); display: grid; gap: 0; }
+.traits div { display: grid; grid-template-columns: 6rem 1fr; gap: var(--s4); padding-block: .55rem; border-top: 1px solid var(--rule); }
+.traits dt { font-family: var(--f-display); font-weight: 900; color: var(--eng); }
+.traits dd { margin: 0; min-width: 0; font-size: .97rem; line-height: 1.75; }
+
+.ann { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); gap: var(--s4); align-items: start; }
+.anc { background: var(--surface); border: 1px solid var(--rule); padding: var(--s4); min-width: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.anc .ah { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); }
+.anc .sec2 { font-family: var(--f-mono); font-size: .76rem; color: var(--muted); }
+.anc .lab { font-family: var(--f-ui); font-size: .74rem; padding: .05rem .5rem; border-radius: 3px; white-space: nowrap; }
+.lab.new { background: var(--accent); color: var(--surface); }
+.lab.tune { background: var(--eng-soft); color: var(--eng); border: 1px solid var(--eng); }
+.lab.post { border: 1px dashed var(--muted); color: var(--muted); }
+.lab.changed { border: 1px solid var(--warn); color: var(--warn); }
+.anc blockquote { margin: 0; font-family: var(--f-latin); font-size: 1rem; line-height: 1.5; padding-left: var(--s3); border-left: 2px solid var(--rule); }
+.anc .tr { font-size: .9rem; color: var(--muted); line-height: 1.7; margin: 0; }
+.anc .note { font-size: .93rem; line-height: 1.75; margin: 0; border-top: 1px dotted var(--rule); padding-top: var(--s2); }
+
+.guide { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15.5rem), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: var(--s4) 0 var(--s5); }
+.session { background: var(--surface); padding: var(--s4); min-width: 0; display: flex; flex-direction: column; gap: var(--s2); }
+.session .sn { font-family: var(--f-latin); font-size: 1.7rem; line-height: 1; color: var(--accent); }
+.session h4 { margin: 0; font-family: var(--f-display); font-weight: 900; font-size: 1.05rem; }
+.session .rd { font-family: var(--f-ui); font-size: .78rem; color: var(--muted); line-height: 1.6; }
+.session ol { margin: 0; padding-left: 1.2em; font-size: .92rem; line-height: 1.7; }
+.session li { margin-bottom: .3em; }
+.session .home { font-size: .88rem; line-height: 1.65; border-top: 1px dotted var(--rule); padding-top: var(--s2); margin-top: auto; }
+.session .home b { font-family: var(--f-ui); font-size: .72rem; font-weight: 500; color: var(--eng); letter-spacing: .06em; display: block; }
+.guide-reads { font-size: .92rem; color: var(--muted); }
+
+@media (max-width: 34rem) {
+  .gen::before { left: .35rem; }
+  .gen li { grid-template-columns: 1fr; gap: 0; padding-left: 1.4rem; }
+  .gen li::before { left: 0; }
+  .gen .gd { text-align: left; }
+  .gen .gb { padding-left: 0; }
+  .traits div { grid-template-columns: 1fr; gap: 0; }
+  .cast { top: calc(env(safe-area-inset-top, 0px) + 4.4rem); }
+}
+
 @media (max-width: 52rem) {
   .four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .inv li { grid-template-columns: 4.5rem 1fr; }
@@ -249,7 +319,7 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
   <nav class="toc" aria-label="目录">
     <a href="#prelude"><span class="n">0</span><span class="t">序章</span><span class="d">为什么先谈重要性</span><span class="status done">已上线</span></a>
     <a href="#m1"><span class="n">I</span><span class="t">重要性</span><span class="d">断层；与《原理》《物种起源》、相对论并列；与伟大的工程发明并列；中心悖论</span><span class="status done">已上线</span></a>
-    <a href="#m2"><span class="n">II</span><span class="t">表达</span><span class="d">它是怎么被造出来的：2016 年成型，2017 年春爆发；把它当工程文本来读</span><span class="status">制作中</span></a>
+    <a href="#m2"><span class="n">II</span><span class="t">表达</span><span class="d">它是怎么被造出来的：2016 年成型，2017 年春爆发；标注版论文；读书会指南</span><span class="status done">已上线</span></a>
     <a href="#m3"><span class="n">III</span><span class="t">理解</span><span class="d">拆零件；我们弄懂了什么，还没弄懂什么</span><span class="status">制作中</span></a>
     <a href="#m4"><span class="n">IV</span><span class="t">处境与行动</span><span class="d">为什么被低估；互联网与电力的滞后；行动不是投资</span><span class="status">制作中</span></a>
     <a href="#cases"><span class="n">⁂</span><span class="t">历史案例库</span><span class="d">20 个已核实的案例：谁把新技术叠加在旧系统上，谁围绕它重新组织</span><span class="status done">已上线</span></a>
@@ -384,11 +454,94 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
       <h2>表达：它是怎么被造出来的</h2>
       <div class="en">Expression</div>
     </div>
-    <div class="outline">
-      <section><h4>空气里的想法</h4><p>2014 年的注意力机制、ResNet、LayerNorm、2016 年谷歌神经翻译对速度的需求，还有 Uszkoreit 参与的《可分解注意力》：一个不用循环、可以并行的小模型。</p></section>
-      <section><h4>2016：成型</h4><p>一顿午饭上的“为什么不用 self-attention？”；同事挑眉，父亲也不同意；一份画着六个变形金刚的设计文档。</p></section>
-      <section><h4>2017 年春：爆发</h4><p>Shazeer 路过走廊，听到讨论，回去重写了代码；截稿前两周没人睡觉；英法翻译的结果在提交前五分钟才出来。</p></section>
-      <section><h4>把它当工程文本来读</h4><p>标注版论文：哪里是调参，哪里是事后解释，哪里后来被推翻。以及读书会指南。</p></section>
+
+    <div class="prose">
+      <p>第一乐章说它重要。这一乐章讲它从哪里来。科学史里，人们喜欢讲顿悟：苹果落地，电梯里的思想实验。这篇论文的来历不是这样。它更像一台机器被一点一点调出来的过程：一个想了几年的念头，一顿午饭，一次路过走廊，一次重写代码，截稿前两周没人睡觉。</p>
+
+      <h3 id="m2-1"><span class="sec">2.1</span>空气里的想法</h3>
+      <p>2017 年以前，“注意力”这个机制已经存在了好几年。2014 年，Bahdanau 等人让翻译模型在生成每个词时回头“看”原句的不同位置。2016 年谷歌上线的神经翻译系统也用了注意力，但它的主体仍是循环网络：一个词接一个词地读，读完上一个才能读下一个。<sup class="fn"><a href="#n2-1" id="r2-1">1</a></sup>这种逐字的结构很难并行，句子越长越慢。</p>
+      <p>零件也都摆在桌上了：2015 年的残差连接，2016 年的层归一化，还有各种训练技巧。缺的是一个判断：如果把循环整个拿掉，只留下注意力，会怎样？</p>
+      <p>2016 年 6 月，Uszkoreit 和三位同事发表了一篇小论文，题目叫《可分解注意力》。模型不用循环，可以完全并行，参数比别人少将近一个数量级，在一个判断句子关系的任务上拿到了当时最好的成绩。<sup class="fn"><a href="#n2-2" id="r2-2">2</a></sup>这是一个小规模的证明。合作者们随后转去把它用在搜索和广告上，没有继续往前推。</p>
+
+      <h3 id="m2-2"><span class="sec">2.2</span>2016：成型</h3>
+      <p>Uszkoreit 从 2014 年前后就开始琢磨他称为“自注意力”的做法。他后来回忆同事们的反应：“大家都挑起了眉毛，因为它把所有现成的神经网络结构都扔掉了。”他的父亲是著名的计算语言学家，两人在饭桌上讨论这件事，意见并不一致。<sup class="fn"><a href="#n2-3" id="r2-3">3</a></sup></p>
+      <p>2016 年的一天，他和同事 Polosukhin 一起吃午饭。Polosukhin 记得的是：“他提议，为什么不用自注意力？”在隔壁楼工作的 Vaswani 听说之后也加入进来。三个人写了一份设计文档，标题是《Transformers：用于各种任务的迭代式自注意力与处理》，结尾画着六个变形金刚在山间发射激光。2017 年初，Polosukhin 离开 Google 去创业，第一批 Transformer 模型已经由他和 Vaswani 写了出来。</p>
+
+      <h3 id="m2-3"><span class="sec">2.3</span>2017 年春：爆发</h3>
+      <p>团队一度卡住了：新模型和循环网络差不多好，但没有更好。转机来自一次偶然。Shazeer 是 Google 的老员工，有一天他走过 Kaiser 工位旁的走廊，听见几个人在讨论。“我记得 Ashish 在讲用自注意力的想法，Niki 非常兴奋。”他加入了，按自己的理解把代码从头重写了一遍。Gomez 说：“从那一刻起，冲刺开始了。”<sup class="fn"><a href="#n2-3">3</a></sup></p>
+      <p>Shazeer 带来了论文里最核心的几样东西：缩放点积注意力、多头注意力、不需要训练参数的位置编码。Kaiser 和当时还是多伦多大学本科生的实习生 Gomez 搭起了新的代码库 tensor2tensor，替换掉旧的。Parmar 设计、调试、评估了“无数”的模型变体。Jones 负责最初的代码库、推理加速和可视化。<sup class="fn"><a href="#n2-4" id="r2-4">4</a></sup></p>
+      <p>NIPS 的截稿日是 2017 年 5 月 19 日。最后两周，大家挤在一栋有更好咖啡机的楼里，Gomez 说“没人睡觉”。Vaswani 有一晚睡在办公室沙发上，盯着窗帘上像神经突触的花纹，对 Gomez 说这件事的意义会远远超出翻译。标题是 Jones 在截稿前几晚想出来的，借自披头士的《All You Need Is Love》：“我是英国人……只花了五秒钟。我没想到他们会用。”英法翻译的结果在提交前大约五分钟才出来，Parmar 当时坐在 1965 号楼的茶水间里。他们交稿时，离截止只剩两分钟左右。<sup class="fn"><a href="#n2-3">3</a></sup></p>
+    </div>
+
+    <figure class="fig" aria-labelledby="gen-cap">
+      <div class="fig-label">图 ④ · 生成时间线</div>
+      <div class="cast" id="cast" aria-label="已加入的作者"></div>
+      <ol class="gen" id="gen"></ol>
+      <div class="foot-card">
+        <div class="fc-head">贡献脚注 <span class="mono">arXiv 1706.03762 · 第 1 页</span></div>
+        <p class="fc-note">2017 年 6 月上传的第一版只写了一句：“Equal contribution. Listing order is random.”（贡献相同，排名随机。）下面这段逐人列出分工的文字，是 2017 年 12 月的第五版才加上的。<sup class="fn"><a href="#n2-4">4</a></sup></p>
+        <div class="fc-grid" id="fcGrid"></div>
+      </div>
+      <figcaption id="gen-cap">往下读，作者的名字会在他们加入的那一刻出现在顶部。点开带“原话”的节点可以看到当事人的回忆，出处在本乐章脚注。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3 id="m2-4"><span class="sec">2.4</span>一个工程想法是怎么生成的</h3>
+      <p>把这段经过拆开看，有几样东西反复出现。</p>
+      <dl class="traits">
+        <div><dt>减法</dt><dd>它的核心动作是拿掉东西。标题本身就是一个减法宣言：只要注意力，循环和卷积都不要了。</dd></div>
+        <div><dt>组合</dt><dd>注意力、残差连接、层归一化都是现成的。新东西是把它们按一种新的方式装在一起，再拿掉一个旧零件。</dd></div>
+        <div><dt>长期的直觉</dt><dd>从 2014 年前后的念头，到 2016 年的小论文，再到 2017 年的爆发，中间隔了三年。</dd></div>
+        <div><dt>偶遇</dt><dd>一顿午饭，一次路过走廊。核心人物里有两位是“碰上的”。</dd></div>
+        <div><dt>怀疑</dt><dd>同事挑眉，父亲不同意。直觉在怀疑里活了下来。</dd></div>
+        <div><dt>手艺</dt><dd>想法一直卡在“和旧方法差不多”，是一次重写代码让它越过了那条线。Jones 的评价是：“Noam 是个巫师。”</dd></div>
+        <div><dt>截止日期</dt><dd>最后一组结果出现在交稿前五分钟。没有截稿日，可能还要再调几个月。</dd></div>
+        <div><dt>玩笑</dt><dd>设计文档里的变形金刚，草稿第一句的“We are awesome”，五秒钟想出来的标题。</dd></div>
+      </dl>
+      <p>把它和第一乐章的另外三部放在一起，差别很清楚。牛顿用几何一步步推出行星的轨道；达尔文花了约二十年收集证据，写成一本长篇论证；爱因斯坦在思想里追着一束光跑，31 页里没有引用一篇文献。它们的生成方式是推理和论证，目标是让结论无可辩驳。</p>
+      <p>Transformer 的生成方式是试。试出一个结构，跑出数字，拿掉一个零件再跑一次，记下变化，再试下一个。论文里最长的表格，就是这些试验的记录。这也就回答了第一乐章的那个悖论：工程不需要先被说服，它只需要先能跑。能跑的东西会立刻被所有人拿去用，理解可以以后再说。</p>
+
+      <h3 id="m2-5"><span class="sec">2.5</span>把它当工程文本来读</h3>
+      <p>如果用读科学论文的眼光读它，会觉得它写得并不好。很多地方作者在猜，很多数字是试出来的，有些理由后来被证明不成立。可是用读工程报告的眼光读，这些恰好是它最诚实的地方：它记下了哪些东西有用，哪些没用，哪些他们也不知道为什么。</p>
+      <p>下面按论文章节挑出十二处。每一处给一句原文、一个标签和一段边注。</p>
+    </div>
+
+    <figure class="fig" aria-labelledby="ann-cap">
+      <div class="fig-label">图 ⑤ · 标注版论文</div>
+      <div class="filters" id="annFilters" role="group" aria-label="按标签筛选"></div>
+      <div class="ann" id="ann"></div>
+      <figcaption id="ann-cap">原文引自 arXiv 1706.03762 第 7 版，只摘短句。表格和图请到 <a href="https://arxiv.org/abs/1706.03762">arXiv</a> 看原文。标签是本站的判断，理由写在每一条的边注里。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3 id="m2-6"><span class="sec">2.6</span>作者们自己看清了吗</h3>
+      <p>看到了一部分。Uszkoreit 说：“我们明白这可能是件很大的事。”Vaswani 说：“我有一种强烈的预感，我们碰到的是更普遍的东西。”<sup class="fn"><a href="#n2-3">3</a></sup></p>
+      <p>可是看论文的结尾，他们写下的野心相当克制：</p>
+      <blockquote><span class="latin">“We plan to extend the Transformer to problems involving input and output modalities other than text … such as images, audio and video. Making generation less sequential is another research goals of ours.”</span><cite>第 7 节，结论。“goals of ours”是原文的语法错误。</cite></blockquote>
+      <p>没有提到对话，没有提到写作和编程，也没有提到推理。后来最重要的那条路，是一年后由别人走出来的：2018 年 6 月，OpenAI 只用 Transformer 的解码器部分做出了第一代 GPT。Altman 后来说：“我觉得 Google 没有人意识到这意味着什么。”Shazeer 开玩笑说，早知道这样，他“可能会更在意作者顺序”。Jones 说：“现在有人找我合影，就因为我在一篇论文上署了名。”<sup class="fn"><a href="#n2-3">3</a></sup></p>
+      <p>发表之后，Google 高层把它看作“又一个有意思的 AI 项目”。八位作者后来陆续离开，创办或加入了 NEAR、Cohere、Character.AI、Adept、Essential AI、Inceptive、Sakana AI 和 OpenAI。<sup class="fn"><a href="#n2-5" id="r2-5">5</a></sup>Uszkoreit 后来问了一个问题，第四乐章会回到这个问题上：</p>
+      <p class="pull">“我们明明已经看到了，为什么什么都没做？”</p>
+
+      <h3 id="m2-7"><span class="sec">2.7</span>读书会指南</h3>
+      <p>这篇论文适合几个人一起读。下面是四次讨论的安排，不需要数学背景。每次大约一个半小时。</p>
+    </div>
+
+    <div class="guide" id="guide"></div>
+
+    <div class="prose">
+      <p class="guide-reads">配套读物：Harvard NLP 的 <a href="https://nlp.seas.harvard.edu/annotated-transformer/"><i class="latin">The Annotated Transformer</i></a>（逐段配代码，注意它的代码用的是 Pre-LN，和论文不同）；Jay Alammar 的 <a href="https://jalammar.github.io/illustrated-transformer/"><i class="latin">The Illustrated Transformer</i></a>（图解）；Steven Levy 2024 年在 <a href="https://www.wired.com/story/eight-google-employees-invented-modern-ai-transformers-paper/"><i class="latin">Wired</i></a> 上的长文（本乐章大部分人物细节的来源）。</p>
+    </div>
+
+    <div class="notes">
+      <h4>注</h4>
+      <ol>
+        <li id="n2-1"><span class="lv V">V</span>Bahdanau, Cho &amp; Bengio, arXiv 1409.0473 (2014)；谷歌神经翻译是带注意力的 8 层 LSTM：<a href="https://arxiv.org/abs/1609.08144">arXiv 1609.08144</a>。</li>
+        <li id="n2-2"><span class="lv V">V</span>Parikh, Täckström, Das &amp; Uszkoreit, “A Decomposable Attention Model for Natural Language Inference”, EMNLP 2016：<a href="https://aclanthology.org/D16-1244/">ACL Anthology</a>。合作者转去搜索和广告，见注 3。</li>
+        <li id="n2-3"><span class="lv V">V</span>Steven Levy, “8 Google Employees Invented Modern AI. Here’s the Inside Story”, <i>Wired</i>, 2024-03-20：<a href="https://www.wired.com/story/eight-google-employees-invented-modern-ai-transformers-paper/">wired.com</a>。本乐章的直接引语（午饭、走廊、截稿、标题、合影、“Google 没有人意识到”、“为什么什么都没做”）均出自此文，属于采访全部八位作者的强二手来源。《降临》外星语言的类比只见于 FT 2023 的转述，本站不采用。</li>
+        <li id="n2-4"><span class="lv V">V</span>贡献脚注与版本：<a href="https://arxiv.org/abs/1706.03762">arXiv 1706.03762</a>。v1（2017-06-12）至 v4 只有“Equal contribution. Listing order is random.”；详细分工从 v5（2017-12-06）起出现。tensor2tensor：<a href="https://research.google/blog/transformer-a-novel-neural-network-architecture-for-language-understanding/">Google Research 博客 2017-08-31</a>。</li>
+        <li id="n2-5"><span class="lv S">S</span>作者去向见 <span class="mono">research/genesis.md</span>。“八位作者都离开了 Google”只在 2023 年下半年到 2024 年 8 月之间严格成立：Shazeer 2024 年回到 Google，2026 年 6 月又去了 OpenAI（<a href="https://www.cnbc.com/2026/06/18/google-gemini-co-lead-noam-shazeer-leaves-for-openai.html">CNBC</a>）。</li>
+        <li id="n2-6"><span class="lv V">V</span>标注版论文的原文与后续文献：Xiong et al. 2020（<a href="https://arxiv.org/abs/2002.04745">arXiv 2002.04745</a>）；Geva et al. 2021（<a href="https://arxiv.org/abs/2012.14913">arXiv 2012.14913</a>）；Press et al. 2022（<a href="https://arxiv.org/abs/2108.12409">arXiv 2108.12409</a>）；Su et al. RoPE（<a href="https://arxiv.org/abs/2104.09864">arXiv 2104.09864</a>）；LLaMA §2.2（<a href="https://arxiv.org/abs/2302.13971">arXiv 2302.13971</a>）。全部核实记录见 <span class="mono">research/flaws.md</span>。</li>
+      </ol>
     </div>
   </article>
 
@@ -441,7 +594,7 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
 </main>
 
 <footer>
-  这是项目的第一个预览版本（M1）。第二、三、四乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
+  这是项目的预览版本（M2）。第三、四乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
 </footer>
 
 <script>
@@ -778,4 +931,178 @@ footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--
   });
   render();
 })();
+
+/* ---------- ④ genesis timeline ---------- */
+(function () {
+  const PEOPLE = ['Uszkoreit', 'Polosukhin', 'Vaswani', 'Parmar', 'Jones', 'Shazeer', 'Kaiser', 'Gomez'];
+  const N = [
+    { d: '约 2014', t: 'Uszkoreit 开始琢磨“自注意力”', x: '一个想法：让句子里的每个词直接看见所有其他词，而不是一个接一个地读。', join: ['Uszkoreit'],
+      q: ['大家都挑起了眉毛，因为它把所有现成的神经网络结构都扔掉了。', 'People raised their eyebrows, because it dumped out all the existing neural architectures.'] },
+    { d: '2016-06', t: '《可分解注意力》发表', x: '不用循环、可以并行的小模型，在一个判断句子关系的任务上拿到当时最好的成绩。合作者随后转去做搜索和广告。', key: true },
+    { d: '2016', t: '一顿午饭', x: 'Uszkoreit 和 Polosukhin 一起吃午饭。随后在隔壁楼工作的 Vaswani 也加入进来。', join: ['Polosukhin', 'Vaswani'],
+      q: ['他提议，为什么不用自注意力？（Polosukhin 的回忆）', 'He suggested, why not use self-attention?'] },
+    { d: '2016–17', t: '一份画着变形金刚的设计文档', x: '标题是《Transformers：用于各种任务的迭代式自注意力与处理》。“Transformer”这个名字从第一天就定了：Uszkoreit 说它会转换信息，也因为“我小时候有两个变形金刚玩具”。' },
+    { d: '2016–17', t: '更多人加入', x: 'Parmar 和 Uszkoreit 一起做模型变体；Jones 从同事那里听说了自注意力。两人加入的具体时间未见记载。', join: ['Parmar', 'Jones'] },
+    { d: '2017 年初', t: 'Polosukhin 离开 Google', x: '他去创业，后来创办了 NEAR。离开前，第一批 Transformer 模型已经由他和 Vaswani 写出来。', leave: ['Polosukhin'] },
+    { d: '2017', t: '卡住了，然后有人路过走廊', x: '新模型和循环网络差不多好，但没有更好。Shazeer 走过 Kaiser 工位旁的走廊，听见了讨论，加入后把代码从头重写。', join: ['Shazeer'], key: true,
+      q: ['我记得 Ashish 在讲用自注意力的想法，Niki 非常兴奋。（Shazeer）／从那一刻起，冲刺开始了。（Gomez）', 'I remember Ashish was talking about the idea of using self-attention, and Niki was very excited about it. / That kicked off a sprint.'] },
+    { d: '2017 春', t: 'tensor2tensor 接手', x: 'Kaiser 和实习生 Gomez 把自己的项目并了进来，用新的代码库 tensor2tensor 替换了旧的，“大大改进了结果”。', join: ['Kaiser', 'Gomez'] },
+    { d: '截稿前两周', t: '没人睡觉', x: '大家挤在一栋咖啡机更好的楼里。Vaswani 有一晚睡在办公室沙发上，盯着窗帘上像神经突触的花纹，对 Gomez 说这件事会远远超出翻译。',
+      q: ['没人睡觉。（Gomez）', 'People weren’t sleeping.'] },
+    { d: '截稿前几晚', t: '五秒钟的标题', x: 'Jones 借披头士的《All You Need Is Love》起了标题。草稿的第一句一度是“We are awesome”。',
+      q: ['我是英国人……只花了五秒钟。我没想到他们会用。（Jones）', 'I’m British… It literally took five seconds of thought. I didn’t think they would use it.'] },
+    { d: '2017-05-19', t: 'NIPS 截稿', x: '英法翻译的结果在提交前大约五分钟才出来，交稿时离截止只剩两分钟左右。', key: true,
+      q: ['英法的数字是在我们提交前五分钟左右才出来的……我当时坐在 1965 号楼的茶水间里。（Parmar）', 'The English-French numbers came, like, five minutes before we submitted… I was sitting in the micro-kitchen in 1965.'] },
+    { d: '2017-06-12', t: '上传 arXiv', x: '第一版。脚注只写着：贡献相同，排名随机。', key: true },
+    { d: '2017-12-06', t: '会议海报，以及第五版', x: '海报前挤满了人，到最后“保安不得不请我们离开”（Uszkoreit）。同一天上传的第五版，加上了逐人列出分工的脚注。' },
+    { d: '2018', t: '别人接过去', x: '6 月，OpenAI 只用 Transformer 的解码器做出了第一代 GPT。同年 Google 把它用进翻译，并发布了 BERT。', key: true },
+  ];
+  const cast = document.getElementById('cast');
+  cast.innerHTML = PEOPLE.map(p => `<span class="who" data-p="${p}">${p}</span>`).join('');
+  const list = document.getElementById('gen');
+  list.innerHTML = N.map((n, i) => `
+    <li class="${n.key ? 'key' : ''}" data-i="${i}">
+      <span class="gd">${n.d}</span>
+      <div class="gb">
+        <div class="gt">${n.t}</div>
+        <p class="gx">${n.x}</p>
+        ${(n.join || n.leave) ? `<div class="joins">${(n.join || []).map(p => `<span>+ ${p}</span>`).join('')}${(n.leave || []).map(p => `<span class="out">− ${p} 离开</span>`).join('')}</div>` : ''}
+        ${n.q ? `<details><summary>原话</summary><p class="q">${n.q[0]}<span class="latin">“${n.q[1]}”</span></p></details>` : ''}
+      </div>
+    </li>`).join('');
+
+  function stateAt(idx) {
+    const st = {};
+    for (let i = 0; i <= idx; i++) {
+      (N[i].join || []).forEach(p => st[p] = 'in');
+      (N[i].leave || []).forEach(p => st[p] = 'left');
+    }
+    return st;
+  }
+  function paint(idx) {
+    const st = stateAt(idx);
+    cast.querySelectorAll('.who').forEach(el => {
+      const s = st[el.dataset.p];
+      el.classList.toggle('in', s === 'in');
+      el.classList.toggle('left', s === 'left');
+      el.title = s === 'left' ? '已离开 Google（仍是作者）' : s === 'in' ? '已加入' : '尚未加入';
+    });
+  }
+  /* At rest (no scrolling yet), show the full team as it stood at submission. */
+  paint(N.length - 1);
+  const items = Array.from(list.querySelectorAll('li'));
+  let ticking = false;
+  function onScroll() {
+    ticking = false;
+    const r = list.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) { paint(N.length - 1); return; }
+    const line = innerHeight * 0.55;
+    let idx = -1;
+    items.forEach((li, i) => { if (li.getBoundingClientRect().top < line) idx = i; });
+    paint(idx < 0 ? -1 : idx);
+  }
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  const FC = [
+    ['Jakob', 'proposed replacing RNNs with self-attention and started the effort to evaluate this idea.', '提出用自注意力取代循环网络，并开始评估这个想法。'],
+    ['Ashish, with Illia', 'designed and implemented the first Transformer models and has been crucially involved in every aspect of this work.', 'Ashish 与 Illia 一起设计并实现了第一批 Transformer 模型；Ashish 参与了这项工作的每一个方面。'],
+    ['Noam', 'proposed scaled dot-product attention, multi-head attention and the parameter-free position representation and became the other person involved in nearly every detail.', '提出了缩放点积注意力、多头注意力和无参数的位置表示，成为另一个几乎参与了每个细节的人。'],
+    ['Niki', 'designed, implemented, tuned and evaluated countless model variants in our original codebase and tensor2tensor.', '在原有代码库和 tensor2tensor 中设计、实现、调试、评估了无数模型变体。'],
+    ['Llion', 'also experimented with novel model variants, was responsible for our initial codebase, and efficient inference and visualizations.', '也试验了新的模型变体，负责最初的代码库、高效推理和可视化。'],
+    ['Lukasz and Aidan', 'spent countless long days designing various parts of and implementing tensor2tensor, replacing our earlier codebase, greatly improving results and massively accelerating our research.', '花了无数个漫长的日子设计并实现 tensor2tensor 的各个部分，替换了早先的代码库，大大改进了结果，极大地加快了研究。'],
+  ];
+  document.getElementById('fcGrid').innerHTML = FC.map(f => `<div><b>${f[0]}</b><p class="en">${f[1]}</p><p class="zh">${f[2]}</p></div>`).join('');
+})();
+
+/* ---------- ⑤ annotated paper ---------- */
+(function () {
+  const TAGS = { new: '新东西', tune: '调参', post: '事后解释', changed: '后来被改掉' };
+  const A = [
+    { s: '摘要', tag: 'new', q: 'We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely.',
+      tr: '我们提出一种新的简单网络结构 Transformer，完全基于注意力机制，彻底去掉了循环和卷积。',
+      n: '整篇论文的核心是一个减法。注意力不是新的，新的是“只要注意力”。' },
+    { s: '§3.2.2', tag: 'new', q: 'Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions.',
+      tr: '多头注意力让模型能同时从不同的表示子空间、在不同的位置上获取信息。',
+      n: '由 Shazeer 提出。直观地说，一句话可以同时被好几种方式“读”：一个头看语法，一个头看指代，一个头看语义。' },
+    { s: '§4', tag: 'new', q: 'One is the total computational complexity per layer. Another is the amount of computation that can be parallelized … The third is the path length between long-range dependencies in the network.',
+      tr: '一是每层的计算量；二是能并行的计算量；三是网络中长距离依赖之间的路径长度。',
+      n: '这是“为什么要拿掉循环”的全部论证。注意第二条：能并行，就能吃满 GPU。这一条后来决定了它能被做到多大。' },
+    { s: '§6.3', tag: 'new', q: 'despite the lack of task-specific tuning our model performs surprisingly well',
+      tr: '尽管没有针对这个任务做专门调整，我们的模型表现得出奇地好。',
+      n: '论文最后顺手试了一个和翻译无关的任务：英文句法分析。这是它“通用”的第一个迹象，作者用的词是“出奇地”。' },
+    { s: '§3.2.1', tag: 'post', q: 'We suspect that for large values of d_k, the dot products grow large in magnitude, pushing the softmax function into regions where it has extremely small gradients.',
+      tr: '我们猜测，当 d_k 很大时，点积的数值会变大，把 softmax 推进梯度极小的区域。',
+      n: '论文里少有的理论片段，放在一个脚注里，用一个简单的方差论证支撑。动词是“猜测”。' },
+    { s: '§3.3', tag: 'post', q: 'This consists of two linear transformations with a ReLU activation in between.',
+      tr: '它由两个线性变换组成，中间夹一个 ReLU 激活。',
+      n: '前馈层占了模型约三分之二的参数，论文只用一句话描述它，没有解释它在做什么。四年后 Geva 等人提出，它像一组“键值记忆”。' },
+    { s: '§4', tag: 'post', q: 'As side benefit, self-attention could yield more interpretable models.',
+      tr: '顺带的好处是，自注意力可能让模型更容易被解释。',
+      n: '一句“顺带”，后来变成了整个可解释性研究领域。直到今天，这个“可能”还远没有兑现。' },
+    { s: '§3.1', tag: 'changed', q: 'the output of each sub-layer is LayerNorm(x + Sublayer(x))',
+      tr: '每个子层的输出是 LayerNorm(x + Sublayer(x))。',
+      n: '归一化放在残差相加之后，称为 Post-LN。Xiong 等人 2020 年发现这种放法让训练不稳，必须靠预热撑住；把归一化挪到前面（Pre-LN）就不需要预热。tensor2tensor 后来把默认改成了 Pre-LN，今天的大模型（如 LLaMA）也都放在前面。' },
+    { s: '§3.5', tag: 'changed', q: 'it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training',
+      tr: '它可能让模型能外推到比训练时更长的序列。',
+      n: '作者选正弦位置编码，是因为“假设”它能外推；表 3 显示可学习的位置编码效果“几乎一样”。2022 年 Press 等人测出正弦编码的外推能力“非常弱”。后来的模型多改用 RoPE 等方法。' },
+    { s: '§5.3', tag: 'tune', q: 'We used warmup_steps = 4000.',
+      tr: '我们用的预热步数是 4000。',
+      n: '学习率先线性升高 4000 步，再按步数的平方根倒数下降。这个数字没有解释。后来人们知道，它主要是在给 Post-LN 的不稳定打补丁。' },
+    { s: '§5.4', tag: 'tune', q: 'This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.',
+      tr: '这会损害困惑度，因为模型学得更不确定，但能提高准确率和 BLEU 分数。',
+      n: '标签平滑 0.1。作者坦白承认：为了目标指标，接受另一个指标变差。这是典型的工程取舍。' },
+    { s: '§6.1–6.2', tag: 'tune', q: 'These hyperparameters were chosen after experimentation on the development set.',
+      tr: '这些超参数是在开发集上试验之后选定的。',
+      n: '束宽 4、长度惩罚 0.6、平均最后 5 个检查点。表 3 记录了更多试验：单头比最好设置差 0.9 BLEU，头太多也会变差；dropout “非常有帮助”。这张表就是调试日志。' },
+  ];
+  const box = document.getElementById('ann');
+  const fl = document.getElementById('annFilters');
+  let cur = 'all';
+  function render() {
+    box.innerHTML = A.filter(a => cur === 'all' || a.tag === cur).map(a => `
+      <article class="anc">
+        <div class="ah"><span class="sec2">${a.s}</span><span class="lab ${a.tag}">${TAGS[a.tag]}</span></div>
+        <blockquote>${a.q}</blockquote>
+        <p class="tr">${a.tr}</p>
+        <p class="note">${a.n}<sup class="fn"><a href="#n2-6">6</a></sup></p>
+      </article>`).join('');
+    fl.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === cur ? 'true' : 'false'));
+  }
+  [['all', '全部', A.length]].concat(Object.keys(TAGS).map(k => [k, TAGS[k], A.filter(a => a.tag === k).length])).forEach(([k, l, n]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.k = k; b.id = 'ann-' + k;
+    b.innerHTML = `${l}<span class="count">${n}</span>`;
+    b.addEventListener('click', () => { cur = k; render(); });
+    fl.appendChild(b);
+  });
+  render();
+})();
+
+/* ---------- reading guide ---------- */
+(function () {
+  const S = [
+    { t: '它有多重要', rd: '本站：序章、第一乐章。论文：只读摘要，看一眼图 1。',
+      q: ['你第一次觉得 AI “不一样了”，是在什么时候、做什么事情的时候？', '为什么解释得最完善的理论，不一定是改变现实最快的？你还能想到别的例子吗？', '把 Transformer 和印刷术放在一起，哪里像，哪里不像？'],
+      h: '找一件你工作中“把新技术叠加在旧流程上”的事，下次带来。' },
+    { t: '它是怎么来的', rd: '本站：2.1–2.4 和生成时间线。论文：第 1、2 节，以及首页的贡献脚注。',
+      q: ['一顿午饭、一次路过走廊，在这个故事里有多重要？你的组织里有“走廊”吗？', '“拿掉一个零件”式的创新，你还见过哪些？', '截稿日在这里是帮了忙还是添了乱？'],
+      h: '找出你所在领域一个“已经在空气里”的想法。' },
+    { t: '当工程文本来读', rd: '本站：2.5 标注版论文。论文：第 3–6 节，跳过公式，只读文字和表 3。',
+      q: ['作者在哪些地方是在“猜”？他们为什么照样把论文发了？', '“损害困惑度，但提高 BLEU”这句话说明了工程师怎样做取舍？', '如果你是审稿人，你会要求补什么？'],
+      h: '用自己的话写一段：这篇论文没有说清楚的一件事。' },
+    { t: '它和我们有什么关系', rd: '本站：2.6、历史案例库。论文：第 7 节结论。',
+      q: ['作者写下的“未来工作”和后来实际发生的事，差了多远？', '在你的行业里，你更像 2017 年的 Google，还是 2018 年的 OpenAI？', '在这个过渡期里，你应该盯住哪些信号？'],
+      h: '写下未来一年你准备围绕 AI “重新组织”的一件事，而不是“多用一个工具”。' },
+  ];
+  document.getElementById('guide').innerHTML = S.map((s, i) => `
+    <section class="session">
+      <span class="sn">${i + 1}</span>
+      <h4>${s.t}</h4>
+      <div class="rd">${s.rd}</div>
+      <ol>${s.q.map(x => `<li>${x}</li>`).join('')}</ol>
+      <div class="home"><b>带回家的问题</b>${s.h}</div>
+    </section>`).join('');
+})();
+
 </script>

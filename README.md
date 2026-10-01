@@ -21,7 +21,8 @@
   - `cases.md`：历史案例库，包括互联网、电力、蒸汽、印刷术、集装箱、Google、柯达与富士等
   - `great-works.md`：《原理》《物种起源》、狭义相对论、Transformer 四篇并列，以及各项发明以什么形态进入世界
   - `genesis.md`：生成史。从约 2014 年的想法、2016 年成型到 2017 年春爆发；贡献脚注；作者的去向
-- `site/index.html`：网站。单页静态 HTML，不需要构建；当前是 M1 预览版
+  - `flaws.md`：把论文当工程文本来读，原文逐条对照 arXiv PDF 核实
+- `site/index.html`：网站。单页静态 HTML，不需要构建；当前是 M2 预览版
 - `experiments/`：小规模 Transformer 实验，在 M4 阶段做
 
 ## 证据标记
