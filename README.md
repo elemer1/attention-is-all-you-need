@@ -19,6 +19,8 @@
 - `PLAN.md`：已批准的项目规划
 - `research/`：研究底稿。每条事实都带出处和证据标记
   - `cases.md`：历史案例库，包括互联网、电力、蒸汽、印刷术、集装箱、Google、柯达与富士等
+  - `great-works.md`：《原理》《物种起源》、狭义相对论、Transformer 四篇并列，以及各项发明以什么形态进入世界
+  - `genesis.md`：生成史。从约 2014 年的想法、2016 年成型到 2017 年春爆发；贡献脚注；作者的去向
 - `site/`：网站（Astro + MDX），从 M1 开始建
 - `experiments/`：小规模 Transformer 实验，在 M4 阶段做
 
