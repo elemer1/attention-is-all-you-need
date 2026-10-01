@@ -1,0 +1,781 @@
+<title>注意力即一切</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;600;900&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: one long-form reading column (~36em) in the manner of a paper,
+   with figures that break out wider; sticky movement bar on top.
+   Cobalt = the paper / attention; teal = engineering. */
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --fg: #19212b;
+  --muted: #5b6573;
+  --rule: #d8dde4;
+  --accent: #2a46c4;
+  --accent-soft: #e4e8fb;
+  --eng: #0d766c;
+  --eng-soft: #ddf1ee;
+  --warn: #9a5b00;
+
+  --f-display: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --f-body: "Noto Serif SC", "Songti SC", "STSong", serif;
+  --f-ui: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --f-latin: "STIX Two Text", "Times New Roman", Times, serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --col: 36rem;
+  --wide: 68rem;
+  --s1: .25rem; --s2: .5rem; --s3: .75rem; --s4: 1rem; --s5: 1.5rem; --s6: 2rem; --s7: 3rem; --s8: 4.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1319; --surface: #161c24; --fg: #e5e9ef; --muted: #9ba5b3; --rule: #29313c;
+    --accent: #93a6ff; --accent-soft: #1d2647; --eng: #57c4b6; --eng-soft: #12302d; --warn: #e3a64a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1319; --surface: #161c24; --fg: #e5e9ef; --muted: #9ba5b3; --rule: #29313c;
+  --accent: #93a6ff; --accent-soft: #1d2647; --eng: #57c4b6; --eng-soft: #12302d; --warn: #e3a64a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: 1.0625rem; line-height: 1.85;
+  margin: 0; padding-inline: 1rem;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: .2em; }
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.latin { font-family: var(--f-latin); }
+.mono { font-family: var(--f-mono); font-size: .85em; }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  margin-inline: -1rem; padding: .5rem 1rem;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+}
+.bar nav { max-width: var(--wide); margin: 0 auto; display: flex; gap: .25rem 1.1rem; flex-wrap: wrap; align-items: baseline; font-family: var(--f-ui); font-size: .82rem; }
+.bar a { color: var(--muted); text-decoration: none; white-space: nowrap; }
+.bar a:hover { color: var(--fg); }
+.bar .home { font-family: var(--f-latin); font-style: italic; color: var(--fg); font-size: .95rem; margin-right: auto; }
+.bar b { font-family: var(--f-latin); font-weight: 600; color: var(--accent); margin-right: .2em; }
+
+/* ---------- hero ---------- */
+.hero { max-width: var(--wide); margin: 0 auto; padding-block: var(--s7) var(--s6); }
+.hero .kicker { font-family: var(--f-ui); font-size: .8rem; letter-spacing: .12em; color: var(--muted); }
+.hero h1 { margin: var(--s3) 0 var(--s2); font-family: var(--f-latin); font-weight: 400; font-style: italic; font-size: clamp(2.3rem, 7vw, 4.6rem); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+.hero .zh { font-family: var(--f-display); font-weight: 900; font-size: clamp(1.25rem, 3.2vw, 1.9rem); line-height: 1.45; max-width: 30em; text-wrap: balance; margin: 0; }
+.hero .meta { font-family: var(--f-ui); color: var(--muted); font-size: .85rem; margin-top: var(--s4); }
+.arcs { margin-top: var(--s6); width: 100%; max-width: 100%; height: auto; display: block; overflow: visible; }
+.arcs path { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: .28; transition: opacity .25s, stroke-width .25s; }
+.arcs path.on { opacity: .95; stroke-width: 2.2; }
+.arcs text { font-family: var(--f-latin); font-size: 38px; fill: var(--fg); cursor: default; }
+.arcs g.word:hover text, .arcs g.word:focus text, .arcs g.word.on text { fill: var(--accent); }
+.arcs g.word { outline: none; }
+.arcs g.word:focus-visible text { text-decoration: underline; }
+.arcs-cap { font-family: var(--f-ui); font-size: .78rem; color: var(--muted); margin-top: var(--s2); }
+
+/* ---------- table of movements ---------- */
+.toc { max-width: var(--wide); margin: 0 auto var(--s8); display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.toc a { background: var(--surface); padding: var(--s4) var(--s4) var(--s5); text-decoration: none; color: var(--fg); display: flex; flex-direction: column; gap: var(--s1); min-width: 0; }
+.toc a:hover { background: var(--accent-soft); }
+.toc .n { font-family: var(--f-latin); font-size: 1.6rem; color: var(--accent); line-height: 1; }
+.toc .t { font-family: var(--f-display); font-weight: 600; font-size: 1.05rem; }
+.toc .d { font-family: var(--f-ui); font-size: .8rem; color: var(--muted); line-height: 1.6; }
+.status { display: inline-block; font-family: var(--f-ui); font-size: .7rem; letter-spacing: .06em; padding: .05rem .45rem; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); width: fit-content; margin-top: var(--s2); }
+.status.done { border-color: var(--eng); color: var(--eng); }
+
+/* ---------- chapters ---------- */
+.movement { max-width: var(--wide); margin: 0 auto; padding-block: var(--s7); border-top: 1px solid var(--rule); }
+.mv-head { display: grid; grid-template-columns: auto 1fr; gap: var(--s2) var(--s5); align-items: baseline; margin-bottom: var(--s6); }
+.mv-head .num { font-family: var(--f-latin); font-size: clamp(3rem, 9vw, 5.5rem); line-height: .9; color: var(--accent); font-weight: 400; }
+.mv-head h2 { margin: 0; font-family: var(--f-display); font-weight: 900; font-size: clamp(1.6rem, 4vw, 2.4rem); line-height: 1.25; text-wrap: balance; }
+.mv-head .en { grid-column: 2; font-family: var(--f-latin); font-style: italic; color: var(--muted); font-size: 1.05rem; }
+.prose { max-width: var(--col); }
+.prose p { margin: 0 0 1.1em; }
+.prose h3 { font-family: var(--f-display); font-weight: 600; font-size: 1.3rem; line-height: 1.4; margin: var(--s7) 0 var(--s4); text-wrap: balance; }
+.prose h3 .sec { font-family: var(--f-latin); color: var(--accent); font-weight: 400; margin-right: .5em; }
+.prose blockquote { margin: var(--s5) 0; padding-left: var(--s4); border-left: 2px solid var(--accent); color: var(--fg); }
+.prose blockquote .latin { font-size: 1.06em; }
+.prose blockquote cite { display: block; font-style: normal; font-family: var(--f-ui); font-size: .8rem; color: var(--muted); margin-top: var(--s2); }
+.pull { font-family: var(--f-display); font-weight: 900; font-size: clamp(1.25rem, 3vw, 1.6rem); line-height: 1.5; max-width: 30em; margin: var(--s6) 0; }
+sup.fn a { font-family: var(--f-ui); font-size: .68em; text-decoration: none; padding: 0 .15em; }
+.pending { font-family: var(--f-ui); font-size: .9rem; color: var(--muted); max-width: var(--col); }
+.pending ul { padding-left: 1.2em; margin: var(--s3) 0 0; }
+.pending li { margin-bottom: .35em; }
+
+/* figures */
+figure.fig { margin: var(--s6) 0; padding: 0; }
+figure.fig > figcaption { font-family: var(--f-ui); font-size: .8rem; color: var(--muted); margin-top: var(--s3); max-width: var(--col); line-height: 1.7; }
+.fig-label { font-family: var(--f-ui); font-size: .72rem; letter-spacing: .14em; color: var(--accent); margin-bottom: var(--s3); }
+
+/* ① rupture */
+.rupture { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--rule); background: var(--surface); }
+.rupture > div { padding: var(--s5); min-width: 0; }
+.rupture > div + div { border-left: 1px solid var(--rule); }
+.rupture h4 { margin: 0 0 var(--s4); font-family: var(--f-ui); font-size: .8rem; letter-spacing: .1em; color: var(--muted); font-weight: 500; }
+.rupture h4 .yr { font-family: var(--f-latin); font-size: 1.9rem; letter-spacing: 0; color: var(--fg); display: block; line-height: 1.1; }
+.rupture .after h4 .yr { color: var(--accent); }
+.ev { display: grid; grid-template-columns: 4.6rem 1fr; gap: var(--s3); padding-block: var(--s3); border-top: 1px solid var(--rule); font-size: .95rem; line-height: 1.7; }
+.ev .d { font-family: var(--f-mono); font-size: .76rem; color: var(--muted); padding-top: .2rem; font-variant-numeric: tabular-nums; }
+.ev p { margin: 0; min-width: 0; }
+.ev q { font-family: var(--f-latin); font-style: italic; quotes: "“" "”"; }
+.transl { display: block; font-family: var(--f-latin); font-size: .95rem; line-height: 1.55; margin: var(--s2) 0 0; padding: var(--s3); background: var(--bg); border-radius: 3px; }
+.transl b { font-family: var(--f-ui); font-size: .7rem; letter-spacing: .08em; color: var(--muted); font-weight: 500; display: block; margin-bottom: .2rem; }
+
+/* ② four works */
+.rowpick { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s4); }
+.rowpick button { font-family: var(--f-ui); font-size: .85rem; padding: .4rem .85rem; border: 1px solid var(--rule); background: var(--surface); color: var(--fg); border-radius: 999px; cursor: pointer; }
+.rowpick button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.four { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.work { background: var(--surface); padding: var(--s4); display: flex; flex-direction: column; gap: var(--s2); min-width: 0; }
+.work.tf { background: var(--accent-soft); }
+.work .yr { font-family: var(--f-latin); font-size: 1.5rem; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; }
+.work.tf .yr { color: var(--accent); }
+.work .nm { font-family: var(--f-display); font-weight: 900; font-size: 1.08rem; line-height: 1.35; }
+.work .au { font-family: var(--f-ui); font-size: .78rem; color: var(--muted); }
+.work .cell { border-top: 1px solid var(--rule); padding-top: var(--s3); margin-top: var(--s2); font-size: .95rem; line-height: 1.75; }
+.work .tag { display: inline-block; font-family: var(--f-ui); font-size: .78rem; padding: .1rem .55rem; border-radius: 3px; margin-bottom: .3rem; }
+.tag.explain { background: var(--bg); color: var(--muted); border: 1px solid var(--rule); }
+.tag.make { background: var(--eng); color: var(--surface); }
+
+/* ③ invention forms */
+.inv { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--rule); }
+.inv li { position: relative; display: grid; grid-template-columns: 5.5rem 10rem 1fr; gap: var(--s2) var(--s4); padding: var(--s3) 0 var(--s3) var(--s5); border-bottom: 1px solid var(--rule); align-items: baseline; }
+.inv li::before { content: ""; position: absolute; left: -6px; top: 1.15rem; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--muted); }
+.inv li.open::before { border-color: var(--eng); background: var(--eng); }
+.inv li.tf::before { border-color: var(--accent); background: var(--accent); }
+.inv .y { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.inv .w { font-family: var(--f-display); font-weight: 600; }
+.inv .w small { display: block; font-family: var(--f-ui); font-weight: 400; font-size: .75rem; color: var(--muted); }
+.inv .f { font-size: .93rem; line-height: 1.7; min-width: 0; }
+.chip { display: inline-block; font-family: var(--f-ui); font-size: .74rem; padding: .05rem .5rem; border-radius: 3px; border: 1px solid var(--rule); color: var(--muted); margin: 0 .3rem .25rem 0; white-space: nowrap; }
+.chip.open { border-color: var(--eng); color: var(--eng); background: var(--eng-soft); }
+.chip.tf { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+.chip.debated { border-style: dashed; color: var(--warn); border-color: var(--warn); }
+
+/* future movements */
+.outline { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--s4); max-width: var(--wide); }
+.outline section { min-width: 0; }
+.outline h4 { margin: 0 0 var(--s2); font-family: var(--f-display); font-weight: 600; font-size: 1rem; }
+.outline p { margin: 0; font-size: .95rem; line-height: 1.75; color: var(--muted); }
+
+/* case library */
+.filters { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s5); }
+.filters button { font-family: var(--f-ui); font-size: .85rem; padding: .35rem .8rem; border: 1px solid var(--rule); background: var(--surface); color: var(--fg); border-radius: 999px; cursor: pointer; }
+.filters button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.filters .count { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); margin-left: .3rem; }
+.filters button[aria-pressed="true"] .count { color: var(--bg); }
+.cases { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: var(--s4); align-items: start; }
+.case { background: var(--surface); border: 1px solid var(--rule); padding: var(--s4) var(--s4) var(--s3); min-width: 0; }
+.case.lead { grid-column: 1 / -1; border-color: var(--accent); }
+.case .top { display: flex; justify-content: space-between; gap: var(--s3); align-items: baseline; }
+.case .cat { font-family: var(--f-ui); font-size: .72rem; letter-spacing: .1em; color: var(--muted); }
+.case .yrs { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.case h4 { font-family: var(--f-display); font-weight: 900; font-size: 1.15rem; line-height: 1.4; margin: var(--s2) 0 var(--s2); text-wrap: balance; }
+.case .gist { margin: 0 0 var(--s3); font-size: .95rem; line-height: 1.75; }
+.steps { margin: 0; display: grid; gap: 0; }
+.steps div { display: grid; grid-template-columns: 3.2rem 1fr; gap: var(--s3); padding-block: .45rem; border-top: 1px dotted var(--rule); font-size: .9rem; line-height: 1.7; }
+.steps dt { font-family: var(--f-ui); font-size: .74rem; color: var(--muted); padding-top: .15rem; }
+.steps dd { margin: 0; min-width: 0; }
+.steps .k-reorg dt { color: var(--eng); }
+.case.lead .steps { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); column-gap: var(--s5); }
+.case details { margin-top: var(--s3); font-family: var(--f-ui); font-size: .78rem; color: var(--muted); }
+.case summary { cursor: pointer; }
+.case details ul { padding-left: 1.1em; margin: var(--s2) 0 0; }
+.case details li { margin-bottom: .3em; word-break: break-word; }
+.myth { margin-top: var(--s3); font-family: var(--f-ui); font-size: .78rem; color: var(--warn); line-height: 1.6; }
+
+/* evidence badges + notes */
+.lv { display: inline-block; font-family: var(--f-mono); font-size: .68rem; padding: 0 .3rem; border-radius: 2px; border: 1px solid currentColor; margin-right: .35rem; vertical-align: .1em; }
+.lv.V { color: var(--eng); }
+.lv.S { color: var(--muted); }
+.notes { max-width: var(--col); margin-top: var(--s7); padding-top: var(--s4); border-top: 1px solid var(--rule); font-family: var(--f-ui); font-size: .8rem; color: var(--muted); line-height: 1.7; }
+.notes h4 { margin: 0 0 var(--s2); font-size: .78rem; letter-spacing: .1em; font-weight: 500; }
+.notes ol { padding-left: 1.4em; margin: 0; }
+.notes li { margin-bottom: .45em; word-break: break-word; }
+.notes li:target { background: var(--accent-soft); }
+
+footer { max-width: var(--wide); margin: 0 auto; padding-block: var(--s6) var(--s7); border-top: 1px solid var(--rule); font-family: var(--f-ui); font-size: .8rem; color: var(--muted); }
+
+@media (max-width: 52rem) {
+  .four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .inv li { grid-template-columns: 4.5rem 1fr; }
+  .inv .f { grid-column: 1 / -1; }
+}
+@media (max-width: 34rem) {
+  .rupture { grid-template-columns: 1fr; }
+  .rupture > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+  .four { grid-template-columns: 1fr; }
+  .ev { grid-template-columns: 1fr; gap: 0; }
+  .bar .home { flex-basis: 100%; }
+  .mv-head { grid-template-columns: 1fr; }
+  .mv-head .en { grid-column: 1; }
+}
+</style>
+
+<header class="bar">
+  <nav aria-label="乐章">
+    <a class="home" href="#top">Attention Is All You Need</a>
+    <a href="#prelude">序章</a>
+    <a href="#m1"><b>I</b>重要性</a>
+    <a href="#m2"><b>II</b>表达</a>
+    <a href="#m3"><b>III</b>理解</a>
+    <a href="#m4"><b>IV</b>处境</a>
+    <a href="#cases">案例库</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="kicker">VASWANI ET AL. · 2017 · ARXIV 1706.03762</div>
+    <h1>Attention Is All You Need</h1>
+    <p class="zh">一篇由工程师调试出来的论文，改变了机器与人类语言的关系。我们想先让人感到它有多重要，再去表达它，最后才去理解它。</p>
+    <p class="meta">一个关于这篇论文的中文项目 · 依怀特海的顺序组织：重要性、表达、理解</p>
+
+    <svg class="arcs" id="arcs" viewBox="0 0 1000 250" role="img" aria-label="标题的五个词两两相连，表示每个词同时看见所有其他词"></svg>
+    <p class="arcs-cap">把鼠标停在一个词上（或用 Tab 键选中）。自注意力的要点：每个词同时看见句子里所有其他的词，而不是从左到右一个个读。此图只是示意，连线粗细不是模型数据。</p>
+  </section>
+
+  <nav class="toc" aria-label="目录">
+    <a href="#prelude"><span class="n">0</span><span class="t">序章</span><span class="d">为什么先谈重要性</span><span class="status done">已上线</span></a>
+    <a href="#m1"><span class="n">I</span><span class="t">重要性</span><span class="d">断层；与《原理》《物种起源》、相对论并列；与伟大的工程发明并列；中心悖论</span><span class="status done">已上线</span></a>
+    <a href="#m2"><span class="n">II</span><span class="t">表达</span><span class="d">它是怎么被造出来的：2016 年成型，2017 年春爆发；把它当工程文本来读</span><span class="status">制作中</span></a>
+    <a href="#m3"><span class="n">III</span><span class="t">理解</span><span class="d">拆零件；我们弄懂了什么，还没弄懂什么</span><span class="status">制作中</span></a>
+    <a href="#m4"><span class="n">IV</span><span class="t">处境与行动</span><span class="d">为什么被低估；互联网与电力的滞后；行动不是投资</span><span class="status">制作中</span></a>
+    <a href="#cases"><span class="n">⁂</span><span class="t">历史案例库</span><span class="d">20 个已核实的案例：谁把新技术叠加在旧系统上，谁围绕它重新组织</span><span class="status done">已上线</span></a>
+  </nav>
+
+  <!-- ================= 序章 ================= -->
+  <article class="movement" id="prelude">
+    <div class="mv-head">
+      <div class="num">0</div>
+      <h2>序章：先有重要性，再有表达，然后才是理解</h2>
+      <div class="en">Importance · Expression · Understanding</div>
+    </div>
+    <div class="prose">
+      <p>1938 年，怀特海出版了《思维方式》（<span class="latin"><i>Modes of Thought</i></span>）。书的前三讲依次叫作“重要性”“表达”“理解”。<sup class="fn"><a href="#n0-1" id="r0-1">1</a></sup>这个顺序本身就是一个主张：人先感到某件事重要，才会想办法把它说出来；说出来以后，才谈得上理解它。</p>
+      <p>我们通常反着来。先学原理，再看应用，最后也许才意识到它的分量。讲《<span class="latin">Attention Is All You Need</span>》的材料大多也是这样：先讲矩阵、讲 Q、K、V，等读者终于弄懂了公式，已经没有力气去感受这件事到底有多大。</p>
+      <p>这个项目按怀特海的顺序走。第一乐章只做一件事：让人感到它的重要性。第二乐章讲它是怎么被造出来的，以及我们怎样一起读这篇其实写得并不漂亮的论文。第三乐章才进入理解。第四乐章回到我们自己：如果它真有这么重要，我们现在的处境是什么，该怎么行动。</p>
+      <p>正文里的每一条史实都有出处，标在脚注里。<span class="lv V">V</span>表示已对照一手或权威来源核实，<span class="lv S">S</span>表示只有可靠的二手来源。没能核实的内容不进正文。</p>
+    </div>
+    <div class="notes">
+      <h4>注</h4>
+      <ol>
+        <li id="n0-1"><span class="lv V">V</span>A. N. Whitehead, <i>Modes of Thought</i> (1938)。前三讲为 Importance、Expression、Understanding。<a href="https://brocku.ca/MeadProject/Whitehead/Whitehead_1938/1938_02.html">Lecture 2</a> · <a href="https://brocku.ca/MeadProject/Whitehead/Whitehead_1938/1938_03.html">Lecture 3</a></li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- ================= 第一乐章 ================= -->
+  <article class="movement" id="m1">
+    <div class="mv-head">
+      <div class="num">I</div>
+      <h2>重要性</h2>
+      <div class="en">Importance</div>
+    </div>
+
+    <div class="prose">
+      <h3 id="m1-1"><span class="sec">1.1</span>断层</h3>
+      <p>2016 年，机器处理人类语言的最好水平是什么样子？那一年 9 月，谷歌把翻译系统换成了神经网络，错误率大幅下降，这在当时是头条新闻。<sup class="fn"><a href="#n1-1" id="r1-1">1</a></sup>同一年 3 月，微软的聊天机器人 Tay 上线不到一天，就因为被人教会了满嘴脏话而紧急下线。<sup class="fn"><a href="#n1-2" id="r1-2">2</a></sup>研究者设计了一组测试常识的代词题，一个小孩都能答对的那种，最好的系统只答对了 58%。<sup class="fn"><a href="#n1-3" id="r1-3">3</a></sup></p>
+      <p>那时的机器能把一句话翻译得更通顺。它不能和你讨论这句话。</p>
+      <p>六年之后，一个系统可以和你来回对话，承认自己的错误，指出你问题里的错误前提。再过两年，诺贝尔化学奖颁给了用注意力模块预测蛋白质结构的人。再过一年，机器用自然语言写出的奥数证明，被国际数学奥林匹克的阅卷人正式评为金牌水平。<sup class="fn"><a href="#n1-4" id="r1-4">4</a></sup></p>
+      <p>这中间发生了什么，下图把两边的材料并排放着。左边是 2016 年，右边是之后。</p>
+    </div>
+    <figure class="fig" aria-labelledby="rup-cap">
+      <div class="fig-label">图 ① · 断层</div>
+      <div class="rupture">
+        <div class="before">
+          <h4><span class="yr">2016</span>机器与语言</h4>
+          <div class="ev"><span class="d">2016-03</span><p>微软聊天机器人 Tay 上线。不到一天，它被一群用户利用“跟我重复”的漏洞教会了种族主义言论，微软随即让它下线。<sup class="fn"><a href="#n1-2">2</a></sup></p></div>
+          <div class="ev"><span class="d">2016-07</span><p>常识代词测试（Winograd 挑战赛）：最好的系统答对 58%，没有一个达到进入下一轮所需的 90%。<sup class="fn"><a href="#n1-3">3</a></sup></p></div>
+          <div class="ev"><span class="d">2016-09</span><p>谷歌神经机器翻译上线。东京大学的历本纯一把海明威《乞力马扎罗的雪》开头的日译本翻回英文，比较新旧系统：<sup class="fn"><a href="#n1-1">1</a></sup>
+            <span class="transl"><b>旧系统</b>Kilimanjaro is 19,710 feet of the mountain covered with snow, and it is said that the highest mountain in Africa.</span>
+            <span class="transl"><b>2016 年的新系统</b>Kilimanjaro is a mountain of 19,710 feet covered with snow and is said to be the highest mountain in Africa.</span>
+            <span class="transl"><b>海明威原文</b>Kilimanjaro is a snow-covered mountain 19,710 feet high, and is said to be the highest mountain in Africa.</span>
+          </p></div>
+        </div>
+        <div class="after">
+          <h4><span class="yr">2022–2026</span>机器与语言</h4>
+          <div class="ev"><span class="d">2022-11</span><p>ChatGPT 上线。OpenAI 的介绍是：<q>The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests.</q><sup class="fn"><a href="#n1-4">4</a></sup></p></div>
+          <div class="ev"><span class="d">2022</span><p>研究者发表论文《Winograd 挑战的失败》：基于 Transformer 的模型已经越过了 90%，这个测试不再能区分机器和人。<sup class="fn"><a href="#n1-3">3</a></sup></p></div>
+          <div class="ev"><span class="d">2024-10</span><p>诺贝尔化学奖的一半授予 Hassabis 和 Jumper，表彰蛋白质结构预测。他们的 AlphaFold2 以注意力模块为核心。同一个结构，已经越出了语言。<sup class="fn"><a href="#n1-4">4</a></sup></p></div>
+          <div class="ev"><span class="d">2025-07</span><p>谷歌 DeepMind 的模型在国际数学奥林匹克题目上得到 35/42，全程用自然语言写证明，由 IMO 阅卷人正式评定为金牌水平。IMO 主席说这些解答“在很多方面令人惊叹”。<sup class="fn"><a href="#n1-4">4</a></sup></p></div>
+          <div class="ev"><span class="d">2026-02</span><p>十一位数学家出了十道未发表的研究级题目，AI 在一周内解出了一半以上。陶哲轩提醒：这是“一大片未报告的失败中零星的成功”，没有验证的 AI 还不能用于严肃的场合。<sup class="fn"><a href="#n1-4">4</a></sup></p></div>
+        </div>
+      </div>
+      <figcaption id="rup-cap">左栏最后一条要注意：2016 年的谷歌神经翻译已经用了注意力机制，但它仍是一个词接一个词地读（循环网络）。第二年的论文拿掉的正是这一点。右栏各条都是厂商或研究者自己报告的成绩，出处和争议见脚注。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h3 id="m1-2"><span class="sec">1.2</span>和最伟大的作品放在一起</h3>
+      <p>要说一件东西有多重要，就得把它放到同一个量级里去比。牛顿的《自然哲学的数学原理》、达尔文的《物种起源》、爱因斯坦 1905 年那篇论狭义相对论的论文，是人们谈到“改变世界的文字”时首先会想到的三部。严格说前两部是书，不是论文，但它们和这篇 2017 年的论文属于同一类东西：一份文本发表之后，人看世界的方式就再也回不去了。</p>
+      <p>下面不打分，只做并列。选一个角度，看四部作品在这一点上各是什么样子。</p>
+    </div>
+
+    <figure class="fig" aria-labelledby="four-cap">
+      <div class="fig-label">图 ② · 四部并列</div>
+      <div class="rowpick" id="rowpick" role="group" aria-label="选择比较的角度"></div>
+      <div class="four" id="four"></div>
+      <figcaption id="four-cap">每一格的史实见本乐章脚注。“到改变日常生活”一行是定性的描述，不是可以直接比较的指标：《原理》的影响经由天文、航海和整个工业时代慢慢展开，很难给出一个年份。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>放在一起看，有一件事很扎眼。前三部都是解释：它们说明了世界本来是什么样子。它们解释得完善、扎实，经得起几百年的反驳，后人很难再改进它们的核心。按常理，这样的东西应该更“好”。</p>
+      <p>第四部几乎什么也没解释。它给出了一个结构，报告说这个结构在翻译任务上效果最好，然后附上一堆表格，说明拿掉哪个零件效果会变差多少。它为什么有效，作者没有说清楚，今天的研究者也还没有完全说清楚。</p>
+      <p class="pull">可是改变现实最快、最直接的，偏偏是解释得最不完善的那一个。</p>
+      <p>这就是这个项目的中心悖论。它在第二乐章还会出现：伟大的工程发明大多是这样，先被造出来，用起来，过很久才被理解。</p>
+
+      <h3 id="m1-3"><span class="sec">1.3</span>和最伟大的工程发明放在一起</h3>
+      <p>如果它属于工程，那就该和工程史上的巨物比：印刷术、蒸汽机、电力、飞机、晶体管、万维网。比较的角度换一个：这些发明是以什么形态进入世界的？</p>
+    </div>
+
+    <figure class="fig" aria-labelledby="inv-cap">
+      <div class="fig-label">图 ③ · 发明以什么形态进入世界</div>
+      <ol class="inv" id="inv"></ol>
+      <figcaption id="inv-cap">虚线标签表示这一说法在历史学界有争议。绿色圆点表示以开放方式扩散，蓝色是 Transformer。</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>大多数伟大的工程发明是以器物、专利、工厂和公司的形态进入世界的。要用它，得买机器、付授权费、建厂房，或者等专利过期。</p>
+      <p>开放扩散并不是从 Transformer 开始的。贝尔实验室在 1950 年代把晶体管专利广泛授权出去，1956 年的反垄断和解令更要求它免费授权；CERN 在 1993 年把万维网软件放进了公有领域。这两件事都证明：一项底层发明越开放，它的影响就被放大得越厉害。</p>
+      <p>Transformer 把这种开放推到了极致。它从一开始就只是一个想法，写成一篇论文放在 arXiv 上，代码一并开源。不需要授权，不需要工厂，不需要谈判标准，一个研究生读完论文就能复现。连竞争对手也可以立刻拿去用：一年之后，OpenAI 就在它的基础上做出了第一代 GPT。<sup class="fn"><a href="#n1-9" id="r1-9">9</a></sup></p>
+      <p>一项通用的工程发明，以一个纯粹想法的形态发表，然后被强硬地推向整个人工智能领域。这是它的扩散速度没有先例的原因。</p>
+
+      <h3 id="m1-4"><span class="sec">1.4</span>造出了比我们的理解更强的东西</h3>
+      <p>工程走在科学前面，这在历史上并不罕见。蒸汽机已经在英国的矿井里运转了一百多年，卡诺才在 1824 年写下《论火的动力》，而他写这本书，正是为了弄明白怎样改进蒸汽机。<sup class="fn"><a href="#n1-10" id="r1-10">10</a></sup>有一句话一般归在美国生理学家亨德森名下：科学欠蒸汽机的，比蒸汽机欠科学的多。</p>
+      <p>莱特兄弟也是这样。他们在 1901 年自己搭了风洞，一组一组地测机翼，1903 年 12 月 17 日飞了起来。<sup class="fn"><a href="#n1-11" id="r1-11">11</a></sup>他们解决的首先是控制问题，空气动力学的理论是后来才追上来的。</p>
+      <p>Transformer 的不同在于程度。蒸汽机的原理，几十年后就被热力学说清楚了。今天的大模型能写作、翻译、编程、证明数学题，而它内部到底在发生什么，研究者还只能看清很小的局部。人类第一次造出了一个能力明显超出我们对它的理解的东西，并且已经每天在用它。</p>
+      <p>断层就在这里。它不只是一项更好的技术。在它之前，人们认为语言和推理是只有人能做的事；在它之后，这条线开始移动，而且移动的速度，比我们任何一个制度调整的速度都快。</p>
+    </div>
+
+    <div class="notes">
+      <h4>注</h4>
+      <ol id="m1-notes">
+        <li id="n1-1"><span class="lv S">S</span>谷歌神经翻译：<a href="https://research.google/blog/a-neural-network-for-machine-translation-at-production-scale/">Google Research 2016-09-27</a>（自称在几组主要语言上把翻译错误减少 55%–85%）；该系统是带注意力的 8 层 LSTM：<a href="https://arxiv.org/abs/1609.08144">arXiv 1609.08144</a>。海明威一例出自 Lewis-Kraus, “The Great A.I. Awakening”, <i>NYT Magazine</i>, 2016-12-14，引文据 <a href="https://kottke.org/16/12/ai-hemingways-the-snows-of-kilimanjaro">kottke.org 的转载</a>，未能直接核对 NYT 原文。</li>
+        <li id="n1-2"><span class="lv V">V</span>Tay：<a href="https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/">微软官方说明 2016-03-25</a>（“a coordinated attack by a subset of people exploited a vulnerability in Tay”）。“约 16 小时”来自二手报道。</li>
+        <li id="n1-3"><span class="lv V">V</span>2016 年 IJCAI Winograd 挑战赛（代词消歧题）：最好成绩 58%。<a href="https://spectrum.ieee.org/winograd-schema-challenge-results-ai-common-sense-still-a-problem-for-now">IEEE Spectrum</a>。之后：Kocijan et al., “The Defeat of the Winograd Schema Challenge” (2022), <a href="https://arxiv.org/abs/2201.02387">arXiv 2201.02387</a>。</li>
+        <li id="n1-4"><span class="lv V">V</span>ChatGPT：<a href="https://openai.com/index/chatgpt/">OpenAI 2022-11-30</a>。诺贝尔化学奖 2024-10-09：<a href="https://www.nobelprize.org/prizes/chemistry/2024/press-release/">nobelprize.org</a>；AlphaFold2 的 Evoformer “contain a number of attention-based and non-attention-based components”：<a href="https://www.nature.com/articles/s41586-021-03819-2">Jumper et al., <i>Nature</i> 2021</a>。IMO 2025：<a href="https://deepmind.google/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/">Google DeepMind 2025-07-21</a>（OpenAI 同期宣布的成绩未经 IMO 官方评定）。First Proof：<a href="https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/">Quanta 2026-04-13</a>（<span class="lv S">S</span>）。</li>
+        <li id="n1-5"><span class="lv S">S</span>《原理》：1687 年 7 月印成（“7 月 5 日”是哈雷写信告诉牛顿印刷完成的日期）；哈雷自费付了印刷费；证明以欧几里得式几何写成。<a href="https://thonyc.wordpress.com/2014/07/05/published-on/">The Renaissance Mathematicus</a> · Guicciardini 1998, <i>Centaurus</i></li>
+        <li id="n1-6"><span class="lv V">V</span>《物种起源》1859-11-24 出版，首印 1,250 册，在出版商的书商预订会上被认购一空（并非“首日向公众售罄”）。<a href="https://darwin-online.org.uk/EditorialIntroductions/Freeman_OntheOriginofSpecies.html">Darwin Online</a>。“约 20 年私下工作”可以说，“因为害怕而拖延”有争议（van Wyhe 2007）。</li>
+        <li id="n1-7"><span class="lv V">V</span>Einstein, “Zur Elektrodynamik bewegter Körper”, <i>Annalen der Physik</i> 322(10): 891–921，1905-06-30 收稿，09-26 发表，全文无参考文献。<a href="https://onlinelibrary.wiley.com/doi/10.1002/andp.19053221004">Wiley</a> · Norton, <a href="https://sites.pitt.edu/~jdnorton/papers/companion.pdf">companion</a>。GPS 卫星钟的相对论修正合计约每天 38 微秒：Ashby 2003, <i>Living Reviews in Relativity</i>。</li>
+        <li id="n1-8"><span class="lv V">V</span>arXiv 1706.03762 于 2017-06-12 提交；ChatGPT 于 2022-11-30 发布。<a href="https://arxiv.org/abs/1706.03762">arXiv</a> · <a href="https://openai.com/blog/chatgpt">OpenAI</a></li>
+        <li id="n1-9"><span class="lv V">V</span>晶体管授权：1952 年每家 2.5 万美元，约 40 家公司参加研讨会；1956 年和解令要求免费授权。<a href="https://www.computerhistory.org/siliconengine/bell-labs-licenses-transistor-technology/">Computer History Museum</a> · Watzinger et al., <i>AEJ: Policy</i> 2020。CERN 1993-04-30 公有领域发布：<a href="https://home.cern/science/computing/birth-web/licensing-web">CERN</a>。GPT-1 于 2018-06-11 发布：<a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf">OpenAI</a>。</li>
+        <li id="n1-10"><span class="lv S">S</span>Carnot, <i>Réflexions sur la puissance motrice du feu</i> (1824)。亨德森这句话没有找到原始出处，最早可确认的印本是 Gillispie, <i>The Edge of Objectivity</i> (1960), p. 357，因此只能写“一般归于”。</li>
+        <li id="n1-11"><span class="lv V">V</span>莱特兄弟：1901 年 10–12 月风洞实验，1903-12-17 首飞。<a href="https://www.loc.gov/collections/wilbur-and-orville-wright-papers/articles-and-essays/the-wilbur-and-orville-wright-timeline-1846-to-1948/1901-to-1910/">Library of Congress</a></li>
+        <li id="n1-12"><span class="lv V">V</span>瓦特专利延期与“拖慢高压蒸汽机”之争：Boldrin &amp; Levine, <i>Against Intellectual Monopoly</i> (2008) ch. 1；反方 Selgin &amp; Turner, <i>J. Law &amp; Econ.</i> 2011。莱特专利之争：Katznelson &amp; Howells, <i>Industrial and Corporate Change</i> 2015。印刷术到 1500 年遍及 270 多座城市：Febvre &amp; Martin。</li>
+      </ol>
+    </div>
+  </article>
+
+  <!-- ================= 第二乐章 ================= -->
+  <article class="movement" id="m2">
+    <div class="mv-head">
+      <div class="num">II</div>
+      <h2>表达：它是怎么被造出来的</h2>
+      <div class="en">Expression</div>
+    </div>
+    <div class="outline">
+      <section><h4>空气里的想法</h4><p>2014 年的注意力机制、ResNet、LayerNorm、2016 年谷歌神经翻译对速度的需求，还有 Uszkoreit 参与的《可分解注意力》：一个不用循环、可以并行的小模型。</p></section>
+      <section><h4>2016：成型</h4><p>一顿午饭上的“为什么不用 self-attention？”；同事挑眉，父亲也不同意；一份画着六个变形金刚的设计文档。</p></section>
+      <section><h4>2017 年春：爆发</h4><p>Shazeer 路过走廊，听到讨论，回去重写了代码；截稿前两周没人睡觉；英法翻译的结果在提交前五分钟才出来。</p></section>
+      <section><h4>把它当工程文本来读</h4><p>标注版论文：哪里是调参，哪里是事后解释，哪里后来被推翻。以及读书会指南。</p></section>
+    </div>
+  </article>
+
+  <!-- ================= 第三乐章 ================= -->
+  <article class="movement" id="m3">
+    <div class="mv-head">
+      <div class="num">III</div>
+      <h2>理解</h2>
+      <div class="en">Understanding</div>
+    </div>
+    <div class="outline">
+      <section><h4>拆零件</h4><p>用真实的小规模实验，拿掉位置编码、拿掉缩放、拿掉预热，看模型会变成什么样。</p></section>
+      <section><h4>注意力游戏</h4><p>点一个词，看它在一个真实的模型里注意哪些词。</p></section>
+      <section><h4>弄懂了什么，还没弄懂什么</h4><p>规模定律、上下文学习、可解释性研究，以及仍然空着的部分。</p></section>
+    </div>
+  </article>
+
+  <!-- ================= 第四乐章 ================= -->
+  <article class="movement" id="m4">
+    <div class="mv-head">
+      <div class="num">IV</div>
+      <h2>处境与行动</h2>
+      <div class="en">Situation &amp; Action</div>
+    </div>
+    <div class="outline">
+      <section><h4>为什么被严重低估</h4><p>人们没有准备好，旧制度接不住这次冲击。教育是最明显的例子：作业、考试、学位的意义都在松动。</p></section>
+      <section><h4>互联网与电力的滞后</h4><p>从 ARPANET 到全球一半人上网用了五十年；电力对工厂生产率的影响，要等第一座电站开业四十年后才出现。转变有它的速度。</p></section>
+      <section><h4>过渡期的不对称优势</h4><p>赢家往往不是最早买电动机的人，而是最早围绕新动力重新组织流程的人。</p></section>
+      <section><h4>行动不是投资</h4><p>纳斯达克用了十五年才回到 2000 年的高点，亚马逊却活了下来。方向对了、时机错了，投资者十几年回不了本；做事的人却在积累能力。</p></section>
+    </div>
+  </article>
+
+  <!-- ================= 案例库 ================= -->
+  <article class="movement" id="cases">
+    <div class="mv-head">
+      <div class="num">⁂</div>
+      <h2>历史案例库：叠加，还是重组</h2>
+      <div class="en">Overlay or Reorganize</div>
+    </div>
+    <div class="prose">
+      <p>经济史学家 Paul David 在 1990 年写过一句话：把一个技术系统叠加在既有的地层上，在历史转型中并不罕见。<sup class="fn"><a href="#c-david">*</a></sup>新技术出现以后，多数人只是把它装进旧系统里；少数人围绕它重新组织一切。收益往往要滞后几十年才显现，而赢家几乎总是后一种人。</p>
+      <p>下面每个案例都按同一个结构整理：新技术、叠加、重组、滞后、结局。展开“出处”可以看到来源和证据等级。</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="按类别筛选"></div>
+    <div class="cases" id="caseList"></div>
+    <div class="notes">
+      <ol style="list-style:none;padding:0"><li id="c-david"><span class="lv V">V</span>* Paul A. David, “The Dynamo and the Computer”, <i>American Economic Review</i> 80(2), 1990: “This sort of overlaying of one technical system upon a preexisting stratum is not unusual during historical transitions.” <a href="https://gwern.net/doc/economics/automation/1990-david.pdf">PDF</a></li></ol>
+    </div>
+  </article>
+</main>
+
+<footer>
+  这是项目的第一个预览版本（M1）。第二、三、四乐章正在制作。研究底稿与全部出处见项目仓库的 <span class="mono">research/</span> 目录。
+</footer>
+
+<script>
+/* ---------- hero arcs ---------- */
+(function () {
+  const svg = document.getElementById('arcs');
+  const NS = 'http://www.w3.org/2000/svg';
+  const words = ['Attention', 'Is', 'All', 'You', 'Need'];
+  const xs = [140, 345, 480, 630, 830];
+  const base = 225;
+  const paths = [];
+  for (let i = 0; i < xs.length; i++) for (let j = i + 1; j < xs.length; j++) {
+    const p = document.createElementNS(NS, 'path');
+    const span = xs[j] - xs[i];
+    const h = Math.min(200, 40 + span * 0.32);
+    p.setAttribute('d', `M${xs[i]},${base - 42} Q${(xs[i] + xs[j]) / 2},${base - 42 - h * 2} ${xs[j]},${base - 42}`);
+    p.dataset.a = i; p.dataset.b = j;
+    svg.appendChild(p); paths.push(p);
+  }
+  words.forEach((w, i) => {
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'word'); g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button'); g.setAttribute('aria-label', w);
+    const t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', xs[i]); t.setAttribute('y', base); t.setAttribute('text-anchor', 'middle');
+    t.textContent = w; g.appendChild(t);
+    const on = () => { g.classList.add('on'); paths.forEach(p => p.classList.toggle('on', p.dataset.a == i || p.dataset.b == i)); };
+    const off = () => { g.classList.remove('on'); paths.forEach(p => p.classList.remove('on')); };
+    g.addEventListener('mouseenter', on); g.addEventListener('mouseleave', off);
+    g.addEventListener('focus', on); g.addEventListener('blur', off);
+    g.addEventListener('touchstart', () => { svg.querySelectorAll('g.word').forEach(x => x.classList.remove('on')); on(); }, { passive: true });
+    svg.appendChild(g);
+  });
+})();
+
+/* ---------- ② four works ---------- */
+(function () {
+  const works = [
+    { yr: '1687', nm: '自然哲学的数学原理', au: '牛顿' },
+    { yr: '1859', nm: '物种起源', au: '达尔文' },
+    { yr: '1905', nm: '论动体的电动力学', au: '爱因斯坦（狭义相对论）' },
+    { yr: '2017', nm: 'Attention Is All You Need', au: 'Vaswani 等八人', tf: true },
+  ];
+  const rows = [
+    { k: '改变了什么', cells: [
+      '天上的行星和地上的苹果，服从同一套力学。',
+      '生命的千差万别，有一个自然的来历。',
+      '时间和空间不是绝对的，它们取决于观察者的运动。',
+      '语言，乃至一部分推理，可以被机器“造”出来。',
+    ]},
+    { k: '它是什么形态', cells: [
+      '拉丁文，三卷。用欧几里得式的几何证明写成，而不是微积分记号。哈雷自掏腰包付了印刷费。<sup class="fn"><a href="#n1-5">5</a></sup>',
+      '一本写给一般读者的长篇论证，是约二十年私下工作的结果。首印 1,250 册。<sup class="fn"><a href="#n1-6">6</a></sup>',
+      '31 页，没有引用任何一篇文献，结尾只感谢了专利局的同事贝索。<sup class="fn"><a href="#n1-7">7</a></sup>',
+      '一份工程报告。主体是一张结构图和几张消融表；最后一组实验结果，是在截稿前五分钟才拿到的。',
+    ]},
+    { k: '到改变日常生活', cells: [
+      '间接而缓慢。经由天文、航海和整个工业时代展开，要以百年计。',
+      '观念很快被接受；它的机制，要到 1930–40 年代的现代综合与 1953 年的 DNA 双螺旋才说清楚。',
+      '今天每部手机的定位都依赖它：GPS 卫星的时钟必须做相对论修正，否则每天会偏差约 38 微秒。<sup class="fn"><a href="#n1-7">7</a></sup>',
+      '2017 年 6 月上传，2022 年 11 月 ChatGPT 上线。前后约五年半。<sup class="fn"><a href="#n1-8">8</a></sup>',
+    ]},
+    { k: '解释还是制造', cells: [
+      '<span class="tag explain">解释</span><br>说明了世界本来的样子。',
+      '<span class="tag explain">解释</span><br>说明了生命本来的样子。',
+      '<span class="tag explain">解释</span><br>说明了时空本来的样子。',
+      '<span class="tag make">制造</span><br>造出了一个以前不存在的东西。它为什么有效，至今没有完整的解释。',
+    ]},
+  ];
+  const pick = document.getElementById('rowpick');
+  const box = document.getElementById('four');
+  let cur = 0;
+  rows.forEach((r, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = r.k; b.id = 'row-' + i;
+    b.setAttribute('aria-pressed', i === cur ? 'true' : 'false');
+    b.addEventListener('click', () => { cur = i; render(); pick.querySelectorAll('button').forEach((x, j) => x.setAttribute('aria-pressed', j === i ? 'true' : 'false')); });
+    pick.appendChild(b);
+  });
+  function render() {
+    box.innerHTML = works.map((w, i) => `
+      <div class="work${w.tf ? ' tf' : ''}">
+        <div class="yr">${w.yr}</div>
+        <div class="nm${w.tf ? ' latin' : ''}">${w.nm}</div>
+        <div class="au">${w.au}</div>
+        <div class="cell" aria-live="polite">${rows[cur].cells[i]}</div>
+      </div>`).join('');
+  }
+  render();
+})();
+
+/* ---------- ③ invention forms ---------- */
+(function () {
+  const items = [
+    { y: '约 1454', w: '印刷术', s: '古腾堡，42 行圣经', chips: [['作坊与手艺']], f: '技术随工匠流动。到 1500 年，欧洲已有 270 多座城市设立印刷所。' },
+    { y: '1769', w: '蒸汽机', s: '瓦特的分离冷凝器', chips: [['专利'], ['专利延期到 1800 年'], ['是否拖慢了发展：有争议', 'debated']], f: '1775 年议会通过法案把专利延期到 1800 年。有学者认为这推迟了高压蒸汽机，也有学者认为影响被夸大了。<sup class="fn"><a href="#n1-12">12</a></sup>' },
+    { y: '1882', w: '电力', s: '爱迪生 Pearl Street 电站', chips: [['公司'], ['专利'], ['公用事业垄断']], f: '要用电，得有电站、电网和电力公司。交流电专利由威斯汀豪斯买下授权。' },
+    { y: '1903', w: '飞机', s: '莱特兄弟', chips: [['专利（1906）'], ['专利战'], ['是否拖慢了美国航空：有争议', 'debated']], f: '莱特兄弟与寇蒂斯打了多年专利官司，直到 1917 年组成专利池。' },
+    { y: '1947', w: '晶体管', s: '贝尔实验室', open: true, chips: [['广泛授权（1952）', 'open'], ['免费授权（1956）', 'open']], f: '每家付 2.5 万美元就能拿到授权和技术培训；1956 年的反垄断和解令要求免费授权。开放扩散的重要先例。' },
+    { y: '1993', w: '万维网', s: 'CERN', open: true, chips: [['公有领域', 'open']], f: '1993 年 4 月 30 日，CERN 把 Web 软件放进公有领域，任何人都可以免费使用和修改。' },
+    { y: '2017', w: 'Transformer', s: 'Google Brain / Google Research', tf: true, chips: [['公开论文', 'tf'], ['开源代码', 'tf'], ['无需授权', 'tf']], f: '一个想法，以论文的形态发表在 arXiv 上，代码一并开源。一年后，竞争对手就在它的基础上做出了 GPT。' },
+  ];
+  document.getElementById('inv').innerHTML = items.map(it => `
+    <li class="${it.tf ? 'tf' : it.open ? 'open' : ''}">
+      <span class="y">${it.y}</span>
+      <span class="w${it.tf ? ' latin' : ''}">${it.w}<small>${it.s}</small></span>
+      <div class="f"><div>${it.chips.map(c => `<span class="chip ${c[1] || ''}">${c[0]}</span>`).join('')}</div>${it.f}</div>
+    </li>`).join('');
+})();
+
+/* ---------- case library ---------- */
+(function () {
+  const CATS = { net: '互联网', power: '动力', info: '信息与物流', inc: '在位者', edu: '教育' };
+  const C = [
+    { id: 'internet', cat: 'net', lead: true, yrs: '1969–2019', t: '互联网：五十年的滞后',
+      g: '从第一条消息到全球一半人上网，用了五十年。它也是 Transformer 最近、最完整的参照。',
+      st: [
+        ['新技术', '1969 年 10 月 29 日，ARPANET 发出第一条消息，本想输入 LOGIN，传到 LO 系统就崩了。1983 年统一为 TCP/IP；1989 年伯纳斯-李提交万维网提案，上司批注“含糊，但令人兴奋”。'],
+        ['开放', '1993 年 4 月 30 日 CERN 把 Web 软件放进公有领域。当年年底，Web 只占互联网流量的约 1%。'],
+        ['滞后', '美国成年人上网比例：1995 年 14%，2000 年 52%。全球过半要到 2019 年。美国劳动生产率年增长从 1.56%（1974–95）升到 3.06%（1995–2004），约三分之二来自 IT。'],
+        ['重组', '1995 年 5 月 26 日，盖茨写下《互联网浪潮》备忘录：“我把互联网列为最高级别的重要性……它改变了规则。”微软随即转向。', 'reorg'],
+        ['结局', '百视达拒绝以约 5,000 万美元收购 Netflix，2010 年破产；Borders 把网上书店外包给亚马逊，2011 年清算；美国报纸的分类广告收入从 2000 年的 196 亿美元降到 2018 年约 22 亿。'],
+        ['行动≠投资', '纳斯达克 2000 年 3 月见顶后跌了约 78%，2015 年才回到原位；思科股价至今没有回到 2000 年的高点。亚马逊股价跌了约 94%，公司却活了下来。'],
+      ],
+      myth: '“百视达当场哄笑”是夸张：Randolph 的原话是对方“在忍着不笑”。互联网“诞生于哪一年”有 1969、1974、1983、1991 多种说法。',
+      src: [['S', 'UCLA：第一条消息', 'https://www.lk.cs.ucla.edu/internet_first_words.html'], ['V', 'CERN 公有领域发布', 'https://home.cern/science/computing/birth-web/licensing-web'], ['S', 'Pew 上网率 2000–2015', 'https://www.pewresearch.org/internet/2015/06/26/americans-internet-access-2000-2015/'], ['V', 'Byrne, Oliner & Sichel 2013（美联储）', 'https://www.federalreserve.gov/pubs/feds/2013/201336/index.html'], ['S', 'Gates 备忘录（CNBC）', 'https://www.cnbc.com/2020/05/26/how-bill-gates-described-the-internet-tidal-wave-in-1995.html'], ['S', '百视达（Fortune）', 'https://fortune.com/2023/04/14/netflix-cofounder-marc-randolph-recalls-blockbuster-rejecting-chance-to-buy-it'], ['V', '纳斯达克 15 年（NPR）', 'https://www.npr.org/sections/thetwo-way/2015/04/23/397113284/15-years-after-the-dot-com-bust-nasdaq-closes-at-new-record']] },
+
+    { id: 'electricity', cat: 'power', yrs: '1882–1929', t: '电力：四十年后才出现在统计里',
+      g: '经济史上关于“叠加与重组”最经典的研究。',
+      st: [
+        ['新技术', '1880 年代初，第一批中央电站开业。'],
+        ['叠加', '1899 年，电动机只占美国工厂机械动力的不到 5%。很多工厂只是把蒸汽机换成一台大电动机，天轴、皮带和厂房全部照旧。'],
+        ['重组', '少数新厂改成每台机器一台电动机：厂房盖成单层，开天窗，机器按工序排列，一台坏了不必全厂停工。', 'reorg'],
+        ['滞后', '电力对制造业生产率的影响，到 1920 年代初才出现，“距第一座中央电站开业已四十年”。1919–29 年制造业全要素生产率的加速，约一半可归因于电动机容量的增长。'],
+        ['原因', '还能用的旧厂房，拆了重建不划算。'],
+      ],
+      src: [['V', 'Paul David 1990, AER', 'https://gwern.net/doc/economics/automation/1990-david.pdf']] },
+
+    { id: 'shafts', cat: 'power', yrs: '1894–1929', t: '从传动轴到电线',
+      g: '工厂动力的四个阶段，中间两个都很短命。',
+      st: [
+        ['旧系统', '一台蒸汽机带动贯穿车间的天轴，“不管实际用了几台机器，轴都在一刻不停地转。一根轴或蒸汽机坏了，整间车间甚至整座工厂都得停工。”'],
+        ['叠加', '第二阶段：电动机替换蒸汽机，其余照旧。第三阶段：一台电动机带一组机器。'],
+        ['重组', '第四阶段：每台机器一台电动机。1894 年南卡罗来纳的 Columbia Mills 成为第一座完全用电的纺织厂。', 'reorg'],
+        ['证据', '2025 年一项基于北卡罗来纳工厂数据的研究发现：电气化提高了生产率，而迟迟不改，说明“配套创新”有多重要。'],
+      ],
+      myth: '找不到哪家具体工厂“只换一台大电机、收益甚微”的实例，这里只能作为一般模式。',
+      src: [['S', 'Devine 1983, J. Econ. Hist.', 'https://www.cambridge.org/core/journals/journal-of-economic-history/article/abs/from-shafts-to-wires-historical-perspective-on-electrification/500078D9B4764BA1109A7967437CF226'], ['S', 'Jovanovic & Rousseau, NBER w8676', 'https://www.nber.org/system/files/working_papers/w8676/w8676.pdf'], ['S', 'Damron 2025, EEH', 'https://ideas.repec.org/a/eee/exehis/v96y2025ics0014498325000014.html']] },
+
+    { id: 'ford', cat: 'power', yrs: '1910–1914', t: '福特 Highland Park',
+      g: '电力让按工序流动的布局成为可能。',
+      st: [
+        ['重组', '1913 年 10 月 7 日启用移动底盘装配线，每辆车的装配时间从 12.5 小时降到 93 分钟。', 'reorg'],
+        ['结局', '1914 年 1 月宣布 5 美元日薪，此前是 2.34 美元，工时从 9 小时减到 8 小时。'],
+      ],
+      myth: '这座工厂并不是纯粹的“每台机器一台电机”，冲压线仍由天轴带动。不能写成“装配线依赖单机驱动”。',
+      src: [['S', 'The Henry Ford', 'https://askus.thehenryford.org/K12/faq/433848']] },
+
+    { id: 'insull', cat: 'power', yrs: '1892–1932', t: 'Insull：赢在商业模式',
+      g: '他没有发明新机器，他重新设计了电的生意。',
+      st: [
+        ['重组', '用需量电表按用户的最大负荷计价；把电车、工厂、住户的用电混在一起摊平负荷；分类定价；推动州政府监管，换取自然垄断地位。', 'reorg'],
+        ['结局', '1920 年 Commonwealth Edison 约有 50 万用户。但他用 2,700 万美元股本控制 5 亿美元资产，1932 年控股帝国崩塌。'],
+      ],
+      src: [['S', 'Wikipedia / Hughes, Networks of Power (1983)', 'https://en.wikipedia.org/wiki/Samuel_Insull']] },
+
+    { id: 'steam', cat: 'power', yrs: '1769–1870', t: '蒸汽：瓦特之后一百年才到峰值',
+      g: '“1830 年以前对增长几乎没有贡献，影响的峰值出现在瓦特发明约一百年后。”',
+      st: [
+        ['滞后', '蒸汽对英国劳动生产率增长的年贡献：1760–1800 年 0.01%，1850–70 年 0.41%。'],
+        ['叠加', '水力长期更划算。到 1830 年，蒸汽和水力才各约 16.5 万马力，打成平手。'],
+        ['重组', '1850 年以后的高压蒸汽，才让这项技术发挥出潜力。', 'reorg'],
+      ],
+      src: [['V', 'Crafts 2004, Economic Journal', 'https://istmat.org/files/uploads/62016/the_economic_journal._vol._114_no._495.pdf']] },
+
+    { id: 'cromford', cat: 'power', yrs: '1771', t: 'Arkwright 的 Cromford 纺纱厂',
+      g: '工厂制度本身就是一项组织发明。',
+      st: [
+        ['重组', '1772 年起两班倒，每班 12 小时。厂门早晚 6 点准时关闭，迟到的人不仅没有当天工资，还要再罚一天。厂方为工人盖了住房。', 'reorg'],
+      ],
+      src: [['S', 'Cromford Mill', 'https://en.wikipedia.org/wiki/Cromford_Mill']] },
+
+    { id: 'printing', cat: 'info', yrs: '1450–1600', t: '印刷术：用来做生意的人赢了',
+      g: '统计里看不到它，城市却在长大。',
+      st: [
+        ['新技术', '1450–1500 年间书价降了三分之二。'],
+        ['重组', '赢家把印刷用在商业上：商业算术和簿记手册。威尼斯的 Aldus Manutius 在 1501 年用便携的八开本和斜体出版古典作品，重新设计了“书”这个产品。路德让印刷变成大众传播：1518–23 年德意志的出版物中，三分之一署着他的名字。', 'reorg'],
+        ['结局', '15 世纪就有印刷所的城市，1500–1600 年人口增长比条件相近的城市快 60%；到 1600 年成为新教城市的概率至少高 29 个百分点。'],
+        ['滞后', '加总的生产率数据里看不到它，“正如 1990 年代中期以前看不到计算机的影响”。'],
+      ],
+      src: [['V', 'Dittmar 2011, QJE', 'https://people.bu.edu/chamley/764-23/Dittmar.pdf'], ['V', 'Rubin 2014, REStat', 'https://ideas.repec.org/a/tpr/restat/v96y2014i2p270-286.html'], ['S', 'Edwards 1994（路德）', 'https://publishing.cdlib.org/ucpressebooks/view?docId=ft3q2nb278']] },
+
+    { id: 'computer', cat: 'info', yrs: '1987–2021', t: '计算机生产率悖论与 J 曲线',
+      g: '“计算机时代无处不在，除了生产率统计。”（Solow，1987）',
+      st: [
+        ['叠加', '只买电脑、不改流程的企业，看不到回报。'],
+        ['重组', '信息技术、工作组织的重组和新产品，三者一起推进才有回报。', 'reorg'],
+        ['滞后', '“像 AI 这样的通用技术，既能带来、也要求大量配套投资。”这些投资多是无形的，转型早期测得的生产率会被低估，形成 J 曲线。'],
+      ],
+      src: [['S', 'Solow 1987 出处', 'https://standupeconomist.com/solows-computer-age-quote-a-definitive-citation/'], ['V', 'Bresnahan, Brynjolfsson & Hitt 2002', 'https://ideas.repec.org/a/oup/qjecon/v117y2002i1p339-376..html'], ['V', 'Brynjolfsson, Rock & Syverson 2021', 'https://www.aeaweb.org/articles?id=10.1257/mac.20180386']] },
+
+    { id: 'walmart', cat: 'info', yrs: '1983–2000', t: '沃尔玛：功劳在管理',
+      g: '同样的 IT，用法不同。',
+      st: [
+        ['新技术', '1983 年条形码扫描，1987 年卫星网络，1991 年 Retail Link。'],
+        ['重组', '麦肯锡 2001 年的报告：沃尔玛“通过持续的管理创新”直接和间接地造成了综合百货业大部分的生产率加速。', 'reorg'],
+      ],
+      myth: '流传的“80% 越库作业”等数字只见于博客，未能核实。',
+      src: [['S', 'MGI 2001', 'https://www.mckinsey.com/featured-insights/americas/us-productivity-growth-1995-2000'], ['S', 'PBS Frontline', 'https://www.pbs.org/wgbh/pages/frontline/shows/walmart/secrets/barcode.html']] },
+
+    { id: 'spreadsheet', cat: 'info', yrs: '1979–2015', t: '电子表格：职业被重新组织',
+      g: 'VisiCalc 1979 年售价 99 美元。',
+      st: [
+        ['结局', '据 NPR，1980 年以来簿记员岗位减少约 40 万个，会计岗位增加约 60 万个。职业没有消失，而是被重新组织了。'],
+      ],
+      src: [['S', 'NPR 2015', 'https://www.npr.org/2015/02/27/389585340/how-the-electronic-spreadsheet-revolutionized-business']] },
+
+    { id: 'container', cat: 'info', yrs: '1956–1983', t: '集装箱：港口的兴衰',
+      g: '一只铁箱子，重排了全球的港口。',
+      st: [
+        ['新技术', '1956 年 4 月 26 日，Ideal X 载 58 个集装箱从纽瓦克开往休斯顿。装卸成本从每吨约 5.83 美元降到 0.16 美元以下。'],
+        ['结局', '纽约港的重心从曼哈顿和布鲁克林码头移到纽瓦克/伊丽莎白；纽约码头工人从约 3.5 万人降到 1976 年不足 1 万。奥克兰崛起，旧金山衰落。'],
+        ['滞后', '对贸易的影响要 10–15 年才显现。'],
+      ],
+      myth: '流传的“700%”“1300%”增幅不用；论文自己也提醒高估计可能偏大。',
+      src: [['S', 'Ideal X', 'https://en.wikipedia.org/wiki/SS_Ideal_X'], ['V', 'Bernhofen, El-Sahli & Kneller 2016, JIE', 'https://cris.brighton.ac.uk/ws/portalfiles/portal/376845/JIE%20accepted%20manuscript%20online%20version%20(1).pdf']] },
+
+    { id: 'google', cat: 'inc', yrs: '2017–2026', t: 'Google：发明者握着信号',
+      g: '全站最有力的案例。发明 Transformer 的公司，没有第一个用它改变世界。',
+      st: [
+        ['信号', '2017 年发明 Transformer。2020 年做出聊天机器人 Meena；据《华尔街日报》报道，Google 以安全和公平为由没有发布，Shazeer 写过内部备忘录《Meena 吞噬世界》。'],
+        ['别人行动', '2018 年 6 月 OpenAI 用它做出 GPT-1；2022 年 11 月 30 日 ChatGPT 上线，12 月 Google 内部进入“红色警报”。'],
+        ['代价', '2023 年 2 月 8 日 Bard 演示出错，Alphabet 当天市值蒸发约 1,000 亿美元。2024 年 Google 花约 27 亿美元把 Shazeer 请回来；2026 年 6 月他又去了 OpenAI。'],
+      ],
+      myth: '“八位作者都离开了 Google”需要注明时间点。',
+      src: [['V', 'Meena, arXiv 2001.09977', 'https://arxiv.org/abs/2001.09977'], ['S', 'WSJ 报道转述', 'https://finance.yahoo.com/news/google-paid-2-7b-rehire-182946950.html'], ['V', 'Bard 演示出错（CNN）', 'https://www.cnn.com/2023/02/08/tech/google-ai-bard-demo-error'], ['V', 'Shazeer 2026（CNBC）', 'https://www.cnbc.com/2026/06/18/google-gemini-co-lead-noam-shazeer-leaves-for-openai.html']] },
+
+    { id: 'kodak', cat: 'inc', yrs: '1975–2012', t: '柯达与富士：同一个信号',
+      g: '一家破产，一家重组。',
+      st: [
+        ['信号', '1975 年，柯达工程师 Sasson 造出数码相机原型：重 8 磅，1 万像素，拍一张黑白照片要 23 秒。'],
+        ['结局', '柯达 2012 年 1 月 19 日申请破产保护。'],
+        ['重组', '富士在古森重隆主导下两轮重组，裁员约 1 万人；2006 年改名，2007 年用胶片化学做出护肤品 Astalift，2008 年收购富山化学。胶片需求在 2000 年见顶，到 2013 年只剩约二十分之一。', 'reorg'],
+      ],
+      myth: '“柯达埋掉了数码”过于简化：柯达拿了专利，后来也是数码相机的主要卖家。',
+      src: [['V', 'Sasson', 'https://en.wikipedia.org/wiki/Steven_Sasson'], ['V', '柯达 8-K', 'https://www.sec.gov/Archives/edgar/data/31235/000119312512016443/d285282d8k.htm'], ['V', 'nippon.com：富士转型', 'https://www.nippon.com/en/features/c00511/']] },
+
+    { id: 'xerox', cat: 'inc', yrs: '1973–1983', t: 'Xerox PARC',
+      g: '发明了图形界面的公司，没有让它走进千家万户。',
+      st: [
+        ['信号', '1973 年 Alto；1981 年 Star 8010，售价 16,595 美元。'],
+        ['别人行动', '1979 年 12 月乔布斯参观 PARC，Xerox 换得认购 10 万股苹果上市前股票的资格。1983 年苹果推出 Lisa。'],
+      ],
+      myth: '“乔布斯偷了图形界面”是神话：Lisa 的开发早于这次参观，苹果的图形系统是自己重写的。站得住的说法是，Xerox 握着信号却没有及时商业化。',
+      src: [['V', 'Xerox Star', 'https://en.wikipedia.org/wiki/Xerox_Star'], ['S', 'Computer History Museum：Lisa', 'https://computerhistory.org/blog/the-lisa-apples-most-influential-failure/']] },
+
+    { id: 'rail', cat: 'inc', yrs: '1854–1977', t: '铁路逼出现代管理',
+      g: '新技术的规模，逼出了一种新的组织。',
+      st: [
+        ['重组', '1854–55 年，McCallum 为 Erie 铁路画出树状组织图，今藏美国国会图书馆。他说：管 50 英里铁路的人可以亲自照看一切；管 500 英里，“情形完全不同”。', 'reorg'],
+        ['理解', '钱德勒《看得见的手》（1977）把铁路称为第一批现代企业。'],
+      ],
+      src: [['V', '国会图书馆：组织图', 'https://loc.gov/pictures/item/ny1255.photos.122185p/'], ['S', 'McCallum 语录', 'https://en.wikiquote.org/wiki/Daniel_McCallum']] },
+
+    { id: 'phaedrus', cat: 'edu', yrs: '约前 370', t: '柏拉图：书写会让人遗忘',
+      g: '对新技术的第一份教育担忧，可能就是这一段。',
+      st: [
+        ['担忧', '《斐德罗篇》里，塔穆斯对发明文字的图提说：书写会让学习者“灵魂中生出遗忘，因为他们不再使用记忆”。'],
+        ['反讽', '这个论点是柏拉图用文字写下来、传到今天的。'],
+      ],
+      src: [['V', 'Phaedrus 275a（Perseus）', 'https://www.perseus.tufts.edu/hopper/text?doc=Perseus%3Atext%3A1999.01.0174%3Atext%3DPhaedrus%3Asection%3D275a']] },
+
+    { id: 'calculator', cat: 'edu', yrs: '1980–1990s', t: '计算器进课堂',
+      g: '一场吵了十几年的争论。',
+      st: [
+        ['新技术', '1980 年，美国数学教师协会建议“在所有年级充分利用计算器和计算机的力量”。'],
+        ['结局', '争议持续到 1988 年仍被称为“持续的计算器之争”，后来汇入 1990 年代的“数学战争”。'],
+      ],
+      src: [['V', 'NCTM 1980（ERIC）', 'https://eric.ed.gov/?id=ED186265']] },
+
+    { id: 'wiki-mooc', cat: 'edu', yrs: '2007–2019', t: '维基百科禁令与慕课神话',
+      g: '学校对互联网的两种反应：先挡，后叠加。',
+      st: [
+        ['挡', '2007 年 1 月，Middlebury College 历史系一致投票，禁止学生在论文和考试里引用维基百科。'],
+        ['叠加', '2012 年被《纽约时报》称为“慕课之年”。2019 年《科学》上的研究分析了 1,267 万次注册：多数学习者第一年之后就不再回来，完课率六年间没有改善。'],
+      ],
+      src: [['V', 'Inside Higher Ed 2007', 'https://www.insidehighered.com/news/2007/01/26/stand-against-wikipedia'], ['S', 'MOOC Pivot（Inside Higher Ed）', 'https://www.insidehighered.com/digital-learning/article/2019/01/16/study-offers-data-show-moocs-didnt-achieve-their-goals']] },
+
+    { id: 'nyc', cat: 'edu', yrs: '2023–2026', t: '纽约公立学校：禁，解禁，再禁',
+      g: '制度还在来回摇摆。',
+      st: [
+        ['禁', '2023 年 1 月禁用 ChatGPT，理由是“对学生学习的负面影响”。'],
+        ['解禁', '2023 年 5 月 18 日撤回禁令，教育局长称之为“条件反射式的恐惧”。'],
+        ['再禁', '2026 年 9 月 2 日，宣布对学前班到八年级约 60 万名学生暂停使用生成式 AI 一年；高中只允许 5 个经批准的工具。'],
+      ],
+      src: [['V', 'Forbes 2023', 'https://www.forbes.com/sites/anafaguy/2023/05/18/new-york-city-public-schools-reverses-chatgpt-ban/'], ['S', 'BetaNYC 2026', 'https://www.beta.nyc/2026/09/04/nyc-paused-ai-in-its-classrooms-here-is-what-the-policy-actually-says/']] },
+
+    { id: 'students', cat: 'edu', yrs: '2023–2025', t: '学生已经在用了',
+      g: '学生的速度比学校快。',
+      st: [
+        ['英国', '2025 年调查：本科生用 AI 完成作业或考核的比例一年内从 53% 升到 88%；只有 29% 认为学校在鼓励使用。'],
+        ['美国', '13–17 岁青少年用 ChatGPT 做功课的比例从 2023 年的 13% 升到 2024 年的 26%。'],
+      ],
+      src: [['V', 'HEPI 2025', 'https://www.hepi.ac.uk/reports/student-generative-ai-survey-2025/'], ['V', 'Pew 2025', 'https://www.pewresearch.org/short-reads/2025/01/15/about-a-quarter-of-us-teens-have-used-chatgpt-for-schoolwork-double-the-share-in-2023/']] },
+  ];
+
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const list = document.getElementById('caseList');
+  const fl = document.getElementById('filters');
+  let cur = 'all';
+  try { const s = localStorage.getItem('aiayn-case-filter'); if (s && (s === 'all' || CATS[s])) cur = s; } catch (e) {}
+
+  function card(c) {
+    return `<article class="case${c.lead ? ' lead' : ''}" id="case-${c.id}">
+      <div class="top"><span class="cat">${CATS[c.cat]}</span><span class="yrs">${c.yrs}</span></div>
+      <h4>${c.t}</h4>
+      <p class="gist">${c.g}</p>
+      <dl class="steps">${c.st.map(s => `<div class="${s[2] === 'reorg' ? 'k-reorg' : ''}"><dt>${s[0]}</dt><dd>${s[1]}</dd></div>`).join('')}</dl>
+      ${c.myth ? `<div class="myth">注意：${c.myth}</div>` : ''}
+      <details><summary>出处（${c.src.length}）</summary><ul>${c.src.map(s => `<li><span class="lv ${s[0]}">${s[0]}</span><a href="${s[2]}">${esc(s[1])}</a></li>`).join('')}</ul></details>
+    </article>`;
+  }
+  function render() {
+    list.innerHTML = C.filter(c => cur === 'all' || c.cat === cur).map(card).join('');
+    fl.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === cur ? 'true' : 'false'));
+  }
+  const keys = [['all', '全部', C.length]].concat(Object.keys(CATS).map(k => [k, CATS[k], C.filter(c => c.cat === k).length]));
+  keys.forEach(([k, label, n]) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.k = k; b.id = 'filter-' + k;
+    b.innerHTML = `${label}<span class="count">${n}</span>`;
+    b.addEventListener('click', () => { cur = k; try { localStorage.setItem('aiayn-case-filter', k); } catch (e) {} render(); });
+    fl.appendChild(b);
+  });
+  render();
+})();
+</script>
